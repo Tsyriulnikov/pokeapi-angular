@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {LoadingService} from "../../serrvices/loading.service";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
+import {PokemonResponse, PokemonResponseResults} from "../../models/pokemon-list.models";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-pokemon-list',
@@ -10,15 +12,18 @@ import {environment} from "../../../environments/environment";
 })
 export class PokemonListComponent implements OnInit {
 loading$ = this.loader.loading$
+pokemons!:PokemonResponseResults[]
+  displayedColumns: string[] = ['name', 'url'];
   constructor(public loader:LoadingService, private  http:HttpClient) { }
 
   ngOnInit(): void {
   }
 fetchData(){
   this.http
-    .get(`${environment.baseUrl}/pokemon`)
+    .get<PokemonResponse>(`${environment.baseUrl}/pokemon`)
     .subscribe((res)=>{
-      console.log(res)
+      this.pokemons = res.results
+      console.log(res.results)
     });
 }
 }

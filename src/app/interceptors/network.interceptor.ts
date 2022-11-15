@@ -1,12 +1,12 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
   HttpInterceptor,
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { finalize } from 'rxjs/operators';
+import {Observable} from 'rxjs';
+import {finalize} from 'rxjs/operators';
 import {LoadingService} from "../serrvices/loading.service";
 
 @Injectable()
@@ -15,7 +15,8 @@ export class NetworkInterceptor implements HttpInterceptor {
   totalRequests = 0;
   requestsCompleted = 0;
 
-  constructor(private loader: LoadingService) {}
+  constructor(private loader: LoadingService) {
+  }
 
   intercept(
     request: HttpRequest<unknown>,
@@ -29,8 +30,6 @@ export class NetworkInterceptor implements HttpInterceptor {
       finalize(() => {
 
         this.requestsCompleted++;
-
-        console.log(this.requestsCompleted, this.totalRequests);
 
         if (this.requestsCompleted === this.totalRequests) {
           this.loader.hide();
