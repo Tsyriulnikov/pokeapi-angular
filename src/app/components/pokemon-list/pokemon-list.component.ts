@@ -1,39 +1,46 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {LoadingService} from "../../serrvices/loading.service";
-import {HttpClient} from "@angular/common/http";
-import {environment} from "../../../environments/environment";
-import {PokemonResponse, PokemonResponseResults} from "../../models/pokemon-list.models";
-import {forkJoin, map, mergeAll, mergeMap, Observable} from "rxjs";
+import {MatPaginator, PageEvent} from "@angular/material/paginator";
+import {MatSort} from "@angular/material/sort";
+import {PokemonListService} from "../../serrvices/pokemon-list.service";
+import {Observable} from "rxjs";
+
 
 @Component({
   selector: 'app-pokemon-list',
   templateUrl: './pokemon-list.component.html',
   styleUrls: ['./pokemon-list.component.scss']
 })
-export class PokemonListComponent implements OnInit {
+export class PokemonListComponent implements OnInit, AfterViewInit {
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+
   loading$ = this.loader.loading$
-  // pokemons!: PokemonResponseResults[]
-  // pokemon!: any
-  pokeList: any[] = []
-  // pokeListPage!: Observable<any>
-
+  pokeList!: Observable<any>
   displayedColumns: string[] = ['name', 'url'];
+  countPokemons: number = 0
+  pageSize: number = 10
+  pageSizeOptions: number[] = [5, 10, 25, 50, 100]
+  pageEvent!: PageEvent
 
-  constructor(public loader: LoadingService, private http: HttpClient) {
+  constructor(
+    public loader: LoadingService,
+    private pokemonListService: PokemonListService) {
   }
 
   ngOnInit(): void {
   }
 
-  fetchData() {
-    this.http.get<PokemonResponse>(`${environment.baseUrl}/pokemon`).pipe(
-      mergeMap(pokemons => {
-        const pokemonProps = pokemons.results.map(el => this.http.get(el.url))
-        return forkJoin(pokemonProps)
-      })
-    ).subscribe(res => {
-      this.pokeList = res
-    })
+  ngAfterViewInit() {
 
+  }
+
+
+  fetchData() {
+    // this.countPokemons = this.pokemonListService.countPokemons
+    this.pokemonListService.fetchData()
+    this.pokeList = this.pokemonListService.pokeList$
+
+    console.log(this.countPokemons)
   }
 }
