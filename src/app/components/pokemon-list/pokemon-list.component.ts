@@ -23,7 +23,8 @@ fetchData(){
     .get<PokemonResponse>(`${environment.baseUrl}/pokemon`)
     .subscribe((res)=>{
       this.pokemons = res.results
-      console.log(res.results)
+      // console.log(res.results)
+       this.http.get(res.results[0].url)
     });
 }
 }
