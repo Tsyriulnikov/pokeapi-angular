@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {LoadingService} from "../../serrvices/loading.service";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {PokemonResponse, PokemonResponseResults} from "../../models/pokemon-list.models";
-import {Observable} from "rxjs";
+import {forkJoin, map, mergeAll, mergeMap, Observable} from "rxjs";
 
 @Component({
   selector: 'app-pokemon-list',
@@ -11,20 +11,29 @@ import {Observable} from "rxjs";
   styleUrls: ['./pokemon-list.component.scss']
 })
 export class PokemonListComponent implements OnInit {
-loading$ = this.loader.loading$
-pokemons!:PokemonResponseResults[]
+  loading$ = this.loader.loading$
+  // pokemons!: PokemonResponseResults[]
+  // pokemon!: any
+  pokeList: any[] = []
+  // pokeListPage!: Observable<any>
+
   displayedColumns: string[] = ['name', 'url'];
-  constructor(public loader:LoadingService, private  http:HttpClient) { }
+
+  constructor(public loader: LoadingService, private http: HttpClient) {
+  }
 
   ngOnInit(): void {
   }
-fetchData(){
-  this.http
-    .get<PokemonResponse>(`${environment.baseUrl}/pokemon`)
-    .subscribe((res)=>{
-      this.pokemons = res.results
-      // console.log(res.results)
-       this.http.get(res.results[0].url)
-    });
-}
+
+  fetchData() {
+    this.http.get<PokemonResponse>(`${environment.baseUrl}/pokemon`).pipe(
+      mergeMap(pokemons => {
+        const pokemonProps = pokemons.results.map(el => this.http.get(el.url))
+        return forkJoin(pokemonProps)
+      })
+    ).subscribe(res => {
+      this.pokeList = res
+    })
+
+  }
 }

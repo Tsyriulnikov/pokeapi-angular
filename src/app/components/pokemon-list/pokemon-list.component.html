@@ -4,7 +4,7 @@
   <mat-progress-spinner [mode]="'indeterminate'"></mat-progress-spinner>
 </ng-container>
 
-<table mat-table [dataSource]="pokemons" class="mat-elevation-z8">
+<table mat-table [dataSource]="pokeList" class="mat-elevation-z8">
 
    <!-- Name Column -->
   <ng-container matColumnDef="name">
@@ -16,7 +16,7 @@
   <ng-container matColumnDef="url">
     <th mat-header-cell *matHeaderCellDef> Image </th>
     <td mat-cell *matCellDef="let element">{{element.url}}
-<!--      <img [src]="element.url"/> </td>-->
+      <img [src]="element.sprites.front_default"/> </td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
