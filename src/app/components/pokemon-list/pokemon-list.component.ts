@@ -1,7 +1,6 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {LoadingService} from "../../serrvices/loading.service";
-import {MatPaginator, PageEvent} from "@angular/material/paginator";
-import {MatSort} from "@angular/material/sort";
+import {PageEvent} from "@angular/material/paginator";
 import {PokemonListService} from "../../serrvices/pokemon-list.service";
 import {Observable} from "rxjs";
 
@@ -12,14 +11,13 @@ import {Observable} from "rxjs";
   styleUrls: ['./pokemon-list.component.scss']
 })
 export class PokemonListComponent implements OnInit, AfterViewInit {
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
 
   loading$ = this.loader.loading$
   pokeList!: Observable<any>
   displayedColumns: string[] = ['name', 'url'];
   countPokemons: number = 0
-  pageSize: number = 10
+  pageSize: number = 5
+  pageIndex: number = 0
   pageSizeOptions: number[] = [5, 10, 25, 50, 100]
   pageEvent!: PageEvent
 
@@ -29,18 +27,24 @@ export class PokemonListComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    this.pokemonListService.fetchData(this.pageSize, this.pageIndex)
+    this.pokemonListService.pokeFetchInit$.subscribe(initPoke => {
+      this.countPokemons = initPoke.count
+    })
+    this.pokemonListService.fetchPokeProps()
+    this.pokeList = this.pokemonListService.pokeList$
   }
 
   ngAfterViewInit() {
 
   }
 
-
-  fetchData() {
-    // this.countPokemons = this.pokemonListService.countPokemons
-    this.pokemonListService.fetchData()
+  handlePageEvent($event: PageEvent) {
+    this.pageEvent = $event
+    this.pageSize = $event.pageSize
+    this.pageIndex = $event.pageIndex
+    this.pokemonListService.fetchData(this.pageSize, this.pageIndex)
+    this.pokemonListService.fetchPokeProps()
     this.pokeList = this.pokemonListService.pokeList$
-
-    console.log(this.countPokemons)
   }
 }
