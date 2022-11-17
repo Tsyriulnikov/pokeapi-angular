@@ -9,6 +9,7 @@ import {HttpClient} from "@angular/common/http";
 })
 export class PokemonListService {
   pokeList$ = new BehaviorSubject<any>([])
+  pokeFetchInit$ = new BehaviorSubject<PokemonResponse[]>([])
   // countPokemons!: number
 
   constructor(private http: HttpClient) {
@@ -23,7 +24,19 @@ export class PokemonListService {
     ).subscribe(res => {
       this.pokeList$.next(res)
     })
-
   }
+
+  // fetchData() {
+  //   this.http.get<PokemonResponse>(`${environment.baseUrl}/pokemon/?offset=20&limit=20"`).pipe(
+  //     mergeMap(pokemons => {
+  //       const pokemonProps = pokemons.results.map(el => this.http.get(el.url))
+  //       return forkJoin(pokemonProps)
+  //     })
+  //   ).subscribe(res => {
+  //     this.pokeList$.next(res)
+  //   })
+  //
+  // }
+
 
 }
