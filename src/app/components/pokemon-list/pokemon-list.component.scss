@@ -23,9 +23,16 @@ mat-progress-spinner {
 button {
   margin: 8px;
 }
-.table-container{
-  position: relative;
-  min-height: 100vh;
-  max-height: 400px;
+
+.table-container {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  height: 90vh;
   overflow: auto;
+  background-color: black;
+}
+
+table {
+  width: 50%;
 }

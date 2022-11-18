@@ -3,7 +3,14 @@ import {LoadingService} from "../../serrvices/loading.service";
 import {PageEvent} from "@angular/material/paginator";
 import {PokemonListService} from "../../serrvices/pokemon-list.service";
 import {Observable} from "rxjs";
+import {MatDialog} from "@angular/material/dialog";
+import {PokemonDetailsComponent} from "../pokemon-details/pokemon-details.component";
 
+export interface PeriodicElement {
+  id:string
+  name: string;
+  symbol: string;
+}
 
 @Component({
   selector: 'app-pokemon-list',
@@ -14,16 +21,19 @@ export class PokemonListComponent implements OnInit, AfterViewInit {
 
   loading$ = this.loader.loading$
   pokeList!: Observable<any>
-  displayedColumns: string[] = ['name', 'url'];
+  displayedColumns: string[] = ['id','name', 'image'];
   countPokemons: number = 0
   pageSize: number = 5
   pageIndex: number = 0
   pageSizeOptions: number[] = [5, 10, 25, 50, 100]
   pageEvent!: PageEvent
-
+  clickedRows = new Set<PeriodicElement>();
   constructor(
     public loader: LoadingService,
-    private pokemonListService: PokemonListService) {
+    private pokemonListService: PokemonListService,
+    public dialog: MatDialog
+  ) {
+
   }
 
   ngOnInit(): void {
@@ -47,4 +57,9 @@ export class PokemonListComponent implements OnInit, AfterViewInit {
     this.pokemonListService.fetchPokeProps()
     this.pokeList = this.pokemonListService.pokeList$
   }
+
+  openDialog() {
+    const dialogRef = this.dialog.open(PokemonDetailsComponent);
+  }
+
 }

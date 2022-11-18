@@ -6,11 +6,13 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatTableModule} from "@angular/material/table";
 import {MatPaginatorModule} from "@angular/material/paginator";
+import {PokemonDetailsComponent} from "../components/pokemon-details/pokemon-details.component";
+import {MatDialogModule} from "@angular/material/dialog";
 
 
 
 @NgModule({
-  declarations: [PokemonListComponent],
+  declarations: [PokemonListComponent, PokemonDetailsComponent,],
   exports: [
     PokemonListComponent
   ],
@@ -20,7 +22,8 @@ import {MatPaginatorModule} from "@angular/material/paginator";
     MatProgressSpinnerModule,
     MatToolbarModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatDialogModule,
   ]
 })
 export class PokemonListModule { }
