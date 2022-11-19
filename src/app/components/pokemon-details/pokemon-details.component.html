@@ -1,6 +1,12 @@
-<h2 mat-dialog-title>{{data.name}}</h2>
-<mat-dialog-content class="mat-typography">
-  <img [src]="data.sprites.front_default"/>
+<h2 mat-dialog-title>{{data.name}} #{{data.id}}</h2>
+<mat-dialog-content class="mat-typography container">
+  <div class="image-block">
+    <img [src]="data.sprites.front_default"/>
+  </div>
+  <div class="parameters-block">
+    <p>Height2' 04</p>
+    <p>Weight15.2 lb</p>
+  </div>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Close</button>
