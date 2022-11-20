@@ -8,11 +8,13 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {NetworkInterceptor} from "./interceptors/network.interceptor";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PokemonDetailsComponent } from './components/pokemon-details/pokemon-details.component';
+import { PokedexComponent } from './components/pokedex/pokedex.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PageNotFoundComponent,
+    PokedexComponent,
 
   ],
   imports: [
