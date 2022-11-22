@@ -54,8 +54,8 @@ export class PokemonListComponent implements OnInit, AfterViewInit {
   }
 
   openDialog(row:any) {
-    console.log(row)
-    this.dialog.open(PokemonDetailsComponent, {data:row});
+    // console.log(row)
+    // this.dialog.open(PokemonDetailsComponent, {data:row});
   }
 
 }
