@@ -9,7 +9,6 @@ import {NetworkInterceptor} from "./interceptors/network.interceptor";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PokedexComponent } from './components/pokedex/pokedex.component';
 import { StoreModule } from '@ngrx/store';
-import {reducers} from "./store";
 
 @NgModule({
   declarations: [
@@ -24,7 +23,7 @@ import {reducers} from "./store";
     PokemonListModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    StoreModule.forRoot(reducers),
+    StoreModule.forRoot({}),
   ],
   providers: [
     {provide:HTTP_INTERCEPTORS, useClass:NetworkInterceptor, multi:true}

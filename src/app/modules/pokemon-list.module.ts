@@ -8,6 +8,8 @@ import {MatTableModule} from "@angular/material/table";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {PokemonDetailsComponent} from "../components/pokemon-details/pokemon-details.component";
 import {MatDialogModule} from "@angular/material/dialog";
+import {StoreModule} from "@ngrx/store";
+import {pokemonListReducer} from "../store/reducers/pokemon-list.reducer";
 
 
 
@@ -24,6 +26,7 @@ import {MatDialogModule} from "@angular/material/dialog";
     MatTableModule,
     MatPaginatorModule,
     MatDialogModule,
+    StoreModule.forFeature('pokemon-list', pokemonListReducer),
   ]
 })
 export class PokemonListModule { }

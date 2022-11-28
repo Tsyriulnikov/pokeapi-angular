@@ -1,12 +1,12 @@
 import {PokemonResponse} from "../../models/pokemon-list.models";
-import {PokemonListActions, PokemonListActionTypes} from "../actions/pokemon-list.actions";
+import {PokemonListActions} from "../actions/pokemon-list.actions";
 
 
-export interface PokemonState {
+export interface PokemonListState {
   pokemonList: PokemonResponse
 }
 
-const pokemonListInitialState: PokemonState = {
+const pokemonListInitialState: PokemonListState = {
   pokemonList: {
     count: 0,
     next: null,
@@ -16,11 +16,13 @@ const pokemonListInitialState: PokemonState = {
 }
 
 export function pokemonListReducer(
-  state = pokemonListInitialState,
-  action: PokemonListActions): PokemonState {
+  state:PokemonListState = pokemonListInitialState,
+  action: PokemonListActions): PokemonListState {
 switch (action.type){
-  case PokemonListActionTypes.FetchPokemonList:
-    return {...state,
-      pokemonList:{...state.pokemonList, action.payload}}
+//   case PokemonListActionTypes.FetchPokemonList:
+//     // return {...state, pokemonList: action.payload}
+// return {...state}
+  default:
+    return state;
 }
 }
