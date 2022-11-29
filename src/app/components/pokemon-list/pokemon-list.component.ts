@@ -7,7 +7,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {PokemonDetailsComponent} from "../pokemon-details/pokemon-details.component";
 import {Store} from "@ngrx/store";
 import * as PokemonList from "../../store/reducers/pokemon-list.reducer";
-import {FetchPokemonList} from "../../store/actions/pokemon-list.actions";
+import {fetchPokemonList} from "../../store/actions/pokemon-list.actions";
 import {PokemonResponse} from "../../models/pokemon-list.models";
 
 
@@ -42,7 +42,8 @@ export class PokemonListComponent implements OnInit, AfterViewInit {
       this.countPokemons = initPoke.count
 
       this.store.dispatch(
-        new FetchPokemonList(initPoke))
+        // new fetchPokemonList(initPoke))
+         fetchPokemonList({payload:initPoke}))
     })
 
 
@@ -65,7 +66,8 @@ export class PokemonListComponent implements OnInit, AfterViewInit {
     this.pokeList = this.pokemonListService.pokeList$
 
     this.pokemonListService.pokeFetchInit$.subscribe(initPoke => {
-      this.store.dispatch(new FetchPokemonList(initPoke))
+      this.store.dispatch(fetchPokemonList({payload:initPoke}))
+      // this.store.dispatch(new FetchPokemonList(initPoke))
     })
   }
 

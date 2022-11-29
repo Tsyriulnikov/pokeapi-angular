@@ -1,6 +1,6 @@
 import {PokemonResponse} from "../../models/pokemon-list.models";
-import {PokemonListActions, PokemonListActionTypes} from "../actions/pokemon-list.actions";
-
+import {createReducer, on} from "@ngrx/store";
+import {fetchPokemonList} from "../actions/pokemon-list.actions";
 
 export interface PokemonListState {
   pokemonList: PokemonResponse
@@ -15,13 +15,7 @@ const pokemonListInitialState: PokemonListState = {
   }
 }
 
-export function pokemonListReducer(
-  state: PokemonListState = pokemonListInitialState,
-  action: PokemonListActions): PokemonListState {
-  switch (action.type) {
-    case PokemonListActionTypes.FetchPokemonList:
-      return {...state, pokemonList:action.payload}
-    default:
-      return state;
-  }
-}
+export const pokemonListReducer = createReducer(
+  pokemonListInitialState,
+  on(fetchPokemonList, (state,{payload})=>({...state, pokemonList:payload}))
+)
