@@ -5,6 +5,10 @@ import {PokemonListService} from "../../serrvices/pokemon-list.service";
 import {Observable} from "rxjs";
 import {MatDialog} from "@angular/material/dialog";
 import {PokemonDetailsComponent} from "../pokemon-details/pokemon-details.component";
+import {Store} from "@ngrx/store";
+import * as PokemonList from "../../store/reducers/pokemon-list.reducer";
+import {FetchPokemonList} from "../../store/actions/pokemon-list.actions";
+import {PokemonResponse} from "../../models/pokemon-list.models";
 
 
 @Component({
@@ -16,7 +20,7 @@ export class PokemonListComponent implements OnInit, AfterViewInit {
 
   loading$ = this.loader.loading$
   pokeList!: Observable<any>
-  displayedColumns: string[] = ['id','name', 'image'];
+  displayedColumns: string[] = ['id', 'name', 'image'];
   countPokemons: number = 0
   pageSize: number = 5
   pageIndex: number = 0
@@ -26,7 +30,8 @@ export class PokemonListComponent implements OnInit, AfterViewInit {
   constructor(
     public loader: LoadingService,
     private pokemonListService: PokemonListService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private store: Store<PokemonList.PokemonListState>
   ) {
 
   }
@@ -35,9 +40,16 @@ export class PokemonListComponent implements OnInit, AfterViewInit {
     this.pokemonListService.fetchData(this.pageSize, this.pageIndex)
     this.pokemonListService.pokeFetchInit$.subscribe(initPoke => {
       this.countPokemons = initPoke.count
+
+      this.store.dispatch(
+        new FetchPokemonList(initPoke))
     })
+
+
     this.pokemonListService.fetchPokeProps()
     this.pokeList = this.pokemonListService.pokeList$
+
+
   }
 
   ngAfterViewInit() {
@@ -51,11 +63,15 @@ export class PokemonListComponent implements OnInit, AfterViewInit {
     this.pokemonListService.fetchData(this.pageSize, this.pageIndex)
     this.pokemonListService.fetchPokeProps()
     this.pokeList = this.pokemonListService.pokeList$
+
+    this.pokemonListService.pokeFetchInit$.subscribe(initPoke => {
+      this.store.dispatch(new FetchPokemonList(initPoke))
+    })
   }
 
-  openDialog(row:any) {
+  openDialog(row: any) {
     console.log(row)
-    this.dialog.open(PokemonDetailsComponent, {data:row});
+    this.dialog.open(PokemonDetailsComponent, {data: row});
   }
 
 }

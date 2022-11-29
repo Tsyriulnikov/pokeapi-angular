@@ -16,23 +16,24 @@ export class PokemonListService {
   //   results: []
   // })
   countPokemons!: number
-  pokeFetchInit$!:Observable<PokemonResponse>
+  pokeFetchInit$!: Observable<PokemonResponse>
 
   constructor(private http: HttpClient) {
   }
 
-  fetchData(limit:number, pageIndex:number) {
-    const offset=pageIndex*limit
+  fetchData(limit: number, pageIndex: number) {
+    const offset = pageIndex * limit
     this.pokeFetchInit$ =
       this.http.get<PokemonResponse>(`${environment.baseUrl}/pokemon/?offset=${offset}&limit=${limit}"`)
-     }
-fetchPokeProps(){
+  }
+
+  fetchPokeProps() {
     this.pokeFetchInit$
-    .pipe(
+      .pipe(
         mergeMap(pokemons => {
-        const pokemonProps = pokemons.results.map(el => this.http.get(el.url))
-        return forkJoin(pokemonProps)
-      })
+          const pokemonProps = pokemons.results.map(el => this.http.get(el.url))
+          return forkJoin(pokemonProps)
+        })
       ).subscribe(res => {
       this.pokeList$.next(res)
     })

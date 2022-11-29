@@ -1,4 +1,5 @@
 import {Action} from "@ngrx/store";
+import {PokemonResponse} from "../../models/pokemon-list.models";
 
 
 export enum PokemonListActionTypes {
@@ -8,7 +9,7 @@ export enum PokemonListActionTypes {
 export class FetchPokemonList implements Action {
   readonly type = PokemonListActionTypes.FetchPokemonList;
 
-//   constructor(public payload: PokemonResponse) {}
+  constructor(public payload: any) {}
 }
 
 export type PokemonListActions = FetchPokemonList
