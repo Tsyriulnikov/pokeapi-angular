@@ -7,8 +7,8 @@ import {MatDialog} from "@angular/material/dialog";
 import {PokemonDetailsComponent} from "../pokemon-details/pokemon-details.component";
 import {Store} from "@ngrx/store";
 import * as PokemonList from "../../store/reducers/pokemon-list.reducer";
-import {fetchPokemonList} from "../../store/actions/pokemon-list.actions";
-import {PokemonResponse} from "../../models/pokemon-list.models";
+import {fetchPokemonList, fetchPokeProps} from "../../store/actions/pokemon-list.actions";
+import {PokemonDetails, PokemonResponse} from "../../models/pokemon-list.models";
 
 
 @Component({
@@ -19,7 +19,7 @@ import {PokemonResponse} from "../../models/pokemon-list.models";
 export class PokemonListComponent implements OnInit, AfterViewInit {
 
   loading$ = this.loader.loading$
-  pokeList!: Observable<any>
+  pokeList!: Observable<PokemonDetails[]>
   displayedColumns: string[] = ['id', 'name', 'image'];
   countPokemons: number = 0
   pageSize: number = 5
@@ -42,7 +42,6 @@ export class PokemonListComponent implements OnInit, AfterViewInit {
       this.countPokemons = initPoke.count
 
       this.store.dispatch(
-        // new fetchPokemonList(initPoke))
          fetchPokemonList({payload:initPoke}))
     })
 
@@ -50,7 +49,9 @@ export class PokemonListComponent implements OnInit, AfterViewInit {
     this.pokemonListService.fetchPokeProps()
     this.pokeList = this.pokemonListService.pokeList$
 
-
+    this.pokemonListService.pokeList$.subscribe(pokeProps=>{
+    this.store.dispatch(fetchPokeProps({payload:pokeProps}))
+    })
   }
 
   ngAfterViewInit() {
@@ -67,8 +68,12 @@ export class PokemonListComponent implements OnInit, AfterViewInit {
 
     this.pokemonListService.pokeFetchInit$.subscribe(initPoke => {
       this.store.dispatch(fetchPokemonList({payload:initPoke}))
-      // this.store.dispatch(new FetchPokemonList(initPoke))
     })
+    this.pokemonListService.pokeList$.subscribe(pokeProps=>{
+      this.store.dispatch(fetchPokeProps({payload:pokeProps}))
+    })
+
+
   }
 
   openDialog(row: any) {

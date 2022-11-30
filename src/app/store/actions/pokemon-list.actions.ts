@@ -8,5 +8,5 @@ export const fetchPokemonList = createAction(
 )
 export const fetchPokeProps = createAction(
   '[PokemonList] FetchPokeProps',
-  props<{ payload: PokemonDetails }>()
+  props<{ payload: PokemonDetails[]}>()
 )

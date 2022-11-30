@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {PokemonResponse} from "../models/pokemon-list.models";
+import {PokemonDetails, PokemonResponse} from "../models/pokemon-list.models";
 import {environment} from "../../environments/environment";
 import {BehaviorSubject, forkJoin, mergeMap, Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
@@ -8,7 +8,7 @@ import {HttpClient} from "@angular/common/http";
   providedIn: 'root'
 })
 export class PokemonListService {
-  pokeList$ = new BehaviorSubject<any>([])
+  pokeList$ = new BehaviorSubject<PokemonDetails[]>([])
   countPokemons!: number
   pokeFetchInit$!: Observable<PokemonResponse>
 
@@ -25,7 +25,7 @@ export class PokemonListService {
     this.pokeFetchInit$
       .pipe(
         mergeMap(pokemons => {
-          const pokemonProps = pokemons.results.map(el => this.http.get(el.url))
+          const pokemonProps = pokemons.results.map(el => this.http.get<PokemonDetails>(el.url))
           return forkJoin(pokemonProps)
         })
       ).subscribe(res => {
