@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
-import {PokemonResponse, PokemonResponseResults} from "../models/pokemon-list.models";
+import {PokemonResponse} from "../models/pokemon-list.models";
 import {environment} from "../../environments/environment";
-import {BehaviorSubject, forkJoin, last, map, mergeMap, Observable, startWith, switchAll} from "rxjs";
+import {BehaviorSubject, forkJoin, mergeMap, Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 
 @Injectable({
@@ -9,12 +9,6 @@ import {HttpClient} from "@angular/common/http";
 })
 export class PokemonListService {
   pokeList$ = new BehaviorSubject<any>([])
-  // pokeFetchInit$ = new BehaviorSubject<PokemonResponse>({
-  //   count: 0,
-  //   next: null,
-  //   previous: null ,
-  //   results: []
-  // })
   countPokemons!: number
   pokeFetchInit$!: Observable<PokemonResponse>
 
@@ -38,18 +32,6 @@ export class PokemonListService {
       this.pokeList$.next(res)
     })
   }
-
-  // fetchData() {
-  //   this.http.get<PokemonResponse>(`${environment.baseUrl}/pokemon/?offset=0&limit=1"`).pipe(
-  //     mergeMap(pokemons => {
-  //       const pokemonProps = pokemons.results.map(el => this.http.get(el.url))
-  //       return forkJoin(pokemonProps)
-  //     })
-  //   ).subscribe(res => {
-  //     this.pokeList$.next(res)
-  //   })
-  //
-  // }
 
 
 }

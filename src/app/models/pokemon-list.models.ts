@@ -9,3 +9,7 @@ export interface PokemonResponseResults {
   name: string,
   url: string
 }
+
+export interface PokemonDetails {
+  pokemonProps:any[]
+}
