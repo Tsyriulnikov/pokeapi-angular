@@ -10,6 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PokedexComponent } from './components/pokedex/pokedex.component';
 import { StoreModule } from '@ngrx/store';
 import {StoreDevtoolsModule} from "@ngrx/store-devtools";
+import {reducers} from "./store";
 
 @NgModule({
   declarations: [
@@ -24,10 +25,10 @@ import {StoreDevtoolsModule} from "@ngrx/store-devtools";
     PokemonListModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    StoreModule.forRoot({}),
+    StoreModule.forRoot({}, {}),
     StoreDevtoolsModule.instrument({
       maxAge: 25
-    })
+    }),
   ],
   providers: [
     {provide:HTTP_INTERCEPTORS, useClass:NetworkInterceptor, multi:true}

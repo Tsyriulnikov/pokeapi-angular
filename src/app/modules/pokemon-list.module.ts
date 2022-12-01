@@ -10,6 +10,7 @@ import {PokemonDetailsComponent} from "../components/pokemon-details/pokemon-det
 import {MatDialogModule} from "@angular/material/dialog";
 import {StoreModule} from "@ngrx/store";
 import {pokemonListReducer} from "../store/reducers/pokemon-list.reducer";
+import {StoreDevtoolsModule} from "@ngrx/store-devtools";
 
 
 
@@ -26,7 +27,10 @@ import {pokemonListReducer} from "../store/reducers/pokemon-list.reducer";
     MatTableModule,
     MatPaginatorModule,
     MatDialogModule,
-    StoreModule.forFeature('pokemon-list', pokemonListReducer),
+    StoreModule.forFeature('pokemons', pokemonListReducer),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25
+    }),
   ]
 })
 export class PokemonListModule { }

@@ -22,5 +22,11 @@ const pokemonListInitialState: PokemonListState = {
 export const pokemonListReducer = createReducer(
   pokemonListInitialState,
   on(fetchPokemonList, (state, {payload}) => ({...state, pokemonList: payload})),
-  on(fetchPokeProps, (state, {payload}) => ({...state, pokemonDetails:{pokemonProps:payload}}))
+  on(fetchPokeProps, (state, {payload}) => ({...state, pokemonDetails: {pokemonProps: payload}}))
 )
+
+export const getPokemons = (state: PokemonListState) => {
+  return {
+    pokemons: state.pokemonDetails.pokemonProps
+  }
+}
