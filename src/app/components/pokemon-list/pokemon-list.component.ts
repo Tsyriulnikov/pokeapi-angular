@@ -1,14 +1,15 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {LoadingService} from "../../serrvices/loading.service";
 import {PageEvent} from "@angular/material/paginator";
 import {PokemonListService} from "../../serrvices/pokemon-list.service";
-import {Observable} from "rxjs";
+import {map, Observable} from "rxjs";
 import {MatDialog} from "@angular/material/dialog";
 import {PokemonDetailsComponent} from "../pokemon-details/pokemon-details.component";
-import {Store} from "@ngrx/store";
-import * as PokemonList from "../../store/reducers/pokemon-list.reducer";
+import {select, Store} from "@ngrx/store";
 import {fetchPokemonList, fetchPokeProps} from "../../store/actions/pokemon-list.actions";
 import {PokemonDetails, PokemonResponse} from "../../models/pokemon-list.models";
+import {PokemonListState} from "../../store/reducers/pokemon-list.reducer";
+import {selectPokemonListProps, StateApp} from "../../store";
 
 
 @Component({
@@ -27,11 +28,16 @@ export class PokemonListComponent implements OnInit, AfterViewInit {
   pageSizeOptions: number[] = [5, 10, 25, 50, 100]
   pageEvent!: PageEvent
 
+  pokeList1!:any[]
+  f=this.storeApp.select(selectPokemonListProps)
+
   constructor(
     public loader: LoadingService,
     private pokemonListService: PokemonListService,
     public dialog: MatDialog,
-    private store: Store<PokemonList.PokemonListState>
+    private store: Store<PokemonListState>,
+    private storeApp: Store<StateApp>
+
   ) {
 
   }
@@ -51,7 +57,16 @@ export class PokemonListComponent implements OnInit, AfterViewInit {
 
     this.pokemonListService.pokeList$.subscribe(pokeProps=>{
     this.store.dispatch(fetchPokeProps({payload:pokeProps}))
-    })
+     })
+// this.f.subscribe(item=>this.pokeList1!=item)
+
+    // console.log(this.pokeList1)
+  //   .subscribe(item=>{
+  //   this.pokeList1!=item
+  //   console.log(this.pokeList1)
+  // })
+
+
   }
 
   ngAfterViewInit() {
@@ -72,7 +87,7 @@ export class PokemonListComponent implements OnInit, AfterViewInit {
     this.pokemonListService.pokeList$.subscribe(pokeProps=>{
       this.store.dispatch(fetchPokeProps({payload:pokeProps}))
     })
-
+console.log(this.f)
 
   }
 
