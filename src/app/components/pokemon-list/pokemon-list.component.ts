@@ -35,7 +35,7 @@ export class PokemonListComponent implements OnInit, AfterViewInit {
     public loader: LoadingService,
     private pokemonListService: PokemonListService,
     public dialog: MatDialog,
-    private readonly store: Store
+    private readonly store: Store<StateApp>
   ) {
     this.store.select(selectPokemonListProps).subscribe(data => this.pokemons = data.pokemons)
   }

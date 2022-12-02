@@ -11,6 +11,7 @@ import { PokedexComponent } from './components/pokedex/pokedex.component';
 import { StoreModule } from '@ngrx/store';
 import {StoreDevtoolsModule} from "@ngrx/store-devtools";
 import {reducers} from "./store";
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import {reducers} from "./store";
     StoreDevtoolsModule.instrument({
       maxAge: 25
     }),
+    EffectsModule.forRoot([]),
   ],
   providers: [
     {provide:HTTP_INTERCEPTORS, useClass:NetworkInterceptor, multi:true}
