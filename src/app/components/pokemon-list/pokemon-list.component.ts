@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {AfterViewInit, ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {LoadingService} from "../../serrvices/loading.service";
 import {PageEvent} from "@angular/material/paginator";
 import {PokemonListService} from "../../serrvices/pokemon-list.service";
@@ -7,15 +7,15 @@ import {MatDialog} from "@angular/material/dialog";
 import {PokemonDetailsComponent} from "../pokemon-details/pokemon-details.component";
 import {select, Store} from "@ngrx/store";
 import {fetchPokemonList, fetchPokeProps} from "../../store/actions/pokemon-list.actions";
-import {PokemonDetails, PokemonResponse} from "../../models/pokemon-list.models";
-import {getPokemons, PokemonListState} from "../../store/reducers/pokemon-list.reducer";
+import {PokemonDetails} from "../../models/pokemon-list.models";
 import {selectPokemonListProps, StateApp} from "../../store";
 
 
 @Component({
   selector: 'app-pokemon-list',
   templateUrl: './pokemon-list.component.html',
-  styleUrls: ['./pokemon-list.component.scss']
+  styleUrls: ['./pokemon-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PokemonListComponent implements OnInit, AfterViewInit {
 
