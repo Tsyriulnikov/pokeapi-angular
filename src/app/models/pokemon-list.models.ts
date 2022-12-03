@@ -1,15 +1,21 @@
 export interface PokemonResponse {
-  count: number,
-  next: null | string,
-  previous: null | string,
+  count: number
+  next: null | string
+  previous: null | string
   results: PokemonResponseResults[]
 }
 
 export interface PokemonResponseResults {
-  name: string,
+  name: string
   url: string
 }
 
 export interface PokemonDetails {
   pokemonProps?:any[]
+}
+
+export interface Common{
+  isLoading?:Boolean
+  isLoadingSucces?:Boolean
+  isLoadingFailure?:Boolean
 }
