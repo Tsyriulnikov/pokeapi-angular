@@ -3,7 +3,7 @@ import {PokemonDetails, PokemonResponse} from "../../models/pokemon-list.models"
 
 export const GET_POKEMON_LIST = '[PokemonList] Get Pokemon List'
 export const GET_POKEMON_LIST_SUCCESS = '[PokemonList] Get Pokemon List Success'
-
+export const GET_POKEMON_LIST_FAILURE = '[PokemonList] Get Pokemon List Failure'
 
 export const fetchPokemonList = createAction(
   '[PokemonList] FetchPokemonList',
@@ -16,8 +16,15 @@ export const fetchPokeProps = createAction(
 
 //Get PokemonList
 export const getPokemonList = createAction(
-  GET_POKEMON_LIST
+  GET_POKEMON_LIST,
+
 )
 export const getPokemonListSuccess = createAction(
-  GET_POKEMON_LIST_SUCCESS
+  GET_POKEMON_LIST_SUCCESS,
+  props<any>()
+)
+
+export const getPokemonListFailure = createAction(
+  GET_POKEMON_LIST_FAILURE,
+  props<{any:any}>()
 )

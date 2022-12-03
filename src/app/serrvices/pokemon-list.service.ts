@@ -33,5 +33,16 @@ export class PokemonListService {
     })
   }
 
+  getPokemonList(limit: number, pageIndex: number) {
+    const offset = pageIndex * limit
+    return this.http.get<PokemonResponse>(`${environment.baseUrl}/pokemon/?offset=${offset}&limit=${limit}"`)
+  }
+
+
+  getTasks() {
+    return this.http.get('/tasks');
+  }
+
+
 
 }
