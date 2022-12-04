@@ -7,7 +7,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {PokemonDetailsComponent} from "../pokemon-details/pokemon-details.component";
 import {select, Store} from "@ngrx/store";
 import {fetchPokemonList, fetchPokeProps, getPokemonList} from "../../store/actions/pokemon-list.actions";
-import {PokemonDetails} from "../../models/pokemon-list.models";
+import {PokemonDetails, PokemonResponse} from "../../models/pokemon-list.models";
 import {selectPokemonListProps, StateApp} from "../../store";
 
 
@@ -30,6 +30,10 @@ export class PokemonListComponent implements OnInit, AfterViewInit {
 
 
   pokemons?: PokemonDetails[] = [];
+  pokemonList?:PokemonResponse
+
+  // pokemonList$: Observable<PokemonResponse> = this.store.select(state => state.pokemonList.pokemonList);
+
 
   constructor(
     public loader: LoadingService,
@@ -38,6 +42,8 @@ export class PokemonListComponent implements OnInit, AfterViewInit {
     private readonly store: Store<StateApp>
   ) {
     this.store.select(selectPokemonListProps).subscribe(data => this.pokemons = data.pokemons)
+    // this.store.select(selectPokemonListProps).subscribe(data => this.pokemonList = data.pokemonList);
+
   }
 
 
@@ -60,7 +66,7 @@ export class PokemonListComponent implements OnInit, AfterViewInit {
     })
 
 
-    console.log(this.pokemons)
+    console.log(this.pokemonList)
 
   }
 
@@ -83,7 +89,7 @@ export class PokemonListComponent implements OnInit, AfterViewInit {
     this.pokemonListService.pokeList$.subscribe(pokeProps => {
       this.store.dispatch(fetchPokeProps({payload: pokeProps}))
     })
-    console.log(this.pokemons)
+    console.log(this.pokemonList)
   }
 
   openDialog(row: any) {

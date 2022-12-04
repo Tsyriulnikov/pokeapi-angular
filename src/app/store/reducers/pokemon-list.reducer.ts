@@ -34,15 +34,13 @@ export const pokemonListReducer = createReducer(
 
 //Get pokemonList
 on(getPokemonList,(state)=>({...state,common:{isLoading: true}})),
-// on(getPokemonListSuccess,(state,{response}) => ({...state, pokemonList: response}))
-on(getPokemonListSuccess,(state,response) =>({...
-state,pokemonList: response, common: isLoading: false, isLoadingSuccess: true}))
-
+on(getPokemonListSuccess,(state,{response}) => ({...state, pokemonList: response,common:{isLoading: false, isLoadingSuccess: true}}))
 
 )
 
 export const getPokemons = (state: PokemonListState) => {
   return {
-    pokemons: state.pokemonDetails.pokemonProps
+    pokemons: state.pokemonDetails.pokemonProps,
+    pokemonList:state.pokemonList
   }
 }

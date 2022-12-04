@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {PokemonListComponent} from "../components/pokemon-list/pokemon-list.component";
 import {MatButtonModule} from "@angular/material/button";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
@@ -13,7 +13,6 @@ import {pokemonListReducer} from "../store/reducers/pokemon-list.reducer";
 import {StoreDevtoolsModule} from "@ngrx/store-devtools";
 import {EffectsModule} from "@ngrx/effects";
 import {PokemonListEffects} from "../store/effects/pokemon-list.effects";
-
 
 
 @NgModule({
@@ -30,10 +29,10 @@ import {PokemonListEffects} from "../store/effects/pokemon-list.effects";
     MatPaginatorModule,
     MatDialogModule,
     StoreModule.forFeature('pokemons', pokemonListReducer),
-    EffectsModule.forRoot([PokemonListEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25
     }),
   ]
 })
-export class PokemonListModule { }
+export class PokemonListModule {
+}

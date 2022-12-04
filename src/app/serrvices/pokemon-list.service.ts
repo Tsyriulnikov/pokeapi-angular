@@ -35,7 +35,6 @@ export class PokemonListService {
 
   getPokemonList(limit: number, pageIndex: number) {
     const offset = pageIndex * limit
-    debugger
     return this.http.get<PokemonResponse>(`${environment.baseUrl}/pokemon/?offset=${offset}&limit=${limit}"`)
   }
 

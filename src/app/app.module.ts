@@ -12,6 +12,7 @@ import { StoreModule } from '@ngrx/store';
 import {StoreDevtoolsModule} from "@ngrx/store-devtools";
 import {reducers} from "./store";
 import { EffectsModule } from '@ngrx/effects';
+import {PokemonListEffects} from "./store/effects";
 
 @NgModule({
   declarations: [
@@ -30,7 +31,7 @@ import { EffectsModule } from '@ngrx/effects';
     StoreDevtoolsModule.instrument({
       maxAge: 25
     }),
-    EffectsModule.forRoot([]),
+    EffectsModule.forRoot([PokemonListEffects]),
   ],
   providers: [
     {provide:HTTP_INTERCEPTORS, useClass:NetworkInterceptor, multi:true}
