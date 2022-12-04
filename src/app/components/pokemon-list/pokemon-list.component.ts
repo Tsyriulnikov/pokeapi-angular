@@ -6,7 +6,7 @@ import {map, Observable, takeUntil} from "rxjs";
 import {MatDialog} from "@angular/material/dialog";
 import {PokemonDetailsComponent} from "../pokemon-details/pokemon-details.component";
 import {select, Store} from "@ngrx/store";
-import {fetchPokemonList, fetchPokeProps} from "../../store/actions/pokemon-list.actions";
+import {fetchPokemonList, fetchPokeProps, getPokemonList} from "../../store/actions/pokemon-list.actions";
 import {PokemonDetails} from "../../models/pokemon-list.models";
 import {selectPokemonListProps, StateApp} from "../../store";
 
@@ -46,8 +46,9 @@ export class PokemonListComponent implements OnInit, AfterViewInit {
     this.pokemonListService.pokeFetchInit$.subscribe(initPoke => {
       this.countPokemons = initPoke.count
 
-      this.store.dispatch(
-        fetchPokemonList({payload: initPoke}))
+      // this.store.dispatch(
+      //   fetchPokemonList({payload: initPoke}))
+      this.store.dispatch(getPokemonList())
     })
 
 
@@ -57,13 +58,8 @@ export class PokemonListComponent implements OnInit, AfterViewInit {
     this.pokemonListService.pokeList$.subscribe(pokeProps => {
       this.store.dispatch(fetchPokeProps({payload: pokeProps}))
     })
-// this.f.subscribe(item=>this.pokeList1!=item)
 
-    // console.log(this.pokeList1)
-    //   .subscribe(item=>{
-    //   this.pokeList1!=item
-    //   console.log(this.pokeList1)
-    // })
+
     console.log(this.pokemons)
 
   }
@@ -80,9 +76,10 @@ export class PokemonListComponent implements OnInit, AfterViewInit {
     this.pokemonListService.fetchPokeProps()
     this.pokeList = this.pokemonListService.pokeList$
 
-    this.pokemonListService.pokeFetchInit$.subscribe(initPoke => {
-      this.store.dispatch(fetchPokemonList({payload: initPoke}))
-    })
+    // this.pokemonListService.pokeFetchInit$.subscribe(initPoke => {
+    //   this.store.dispatch(fetchPokemonList({payload: initPoke}))
+    // })
+    this.store.dispatch(getPokemonList())
     this.pokemonListService.pokeList$.subscribe(pokeProps => {
       this.store.dispatch(fetchPokeProps({payload: pokeProps}))
     })

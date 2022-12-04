@@ -11,6 +11,8 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {StoreModule} from "@ngrx/store";
 import {pokemonListReducer} from "../store/reducers/pokemon-list.reducer";
 import {StoreDevtoolsModule} from "@ngrx/store-devtools";
+import {EffectsModule} from "@ngrx/effects";
+import {PokemonListEffects} from "../store/effects/pokemon-list.effects";
 
 
 
@@ -28,6 +30,7 @@ import {StoreDevtoolsModule} from "@ngrx/store-devtools";
     MatPaginatorModule,
     MatDialogModule,
     StoreModule.forFeature('pokemons', pokemonListReducer),
+    EffectsModule.forRoot([PokemonListEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25
     }),

@@ -17,14 +17,13 @@ export const fetchPokeProps = createAction(
 //Get PokemonList
 export const getPokemonList = createAction(
   GET_POKEMON_LIST,
-
 )
 export const getPokemonListSuccess = createAction(
   GET_POKEMON_LIST_SUCCESS,
-  props<any>()
+  props<{response:PokemonResponse}>()
 )
 
 export const getPokemonListFailure = createAction(
   GET_POKEMON_LIST_FAILURE,
-  props<{any:any}>()
+  props<any>()
 )
