@@ -7,6 +7,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {PokemonDetailsComponent} from "../pokemon-details/pokemon-details.component";
 import {select, Store} from "@ngrx/store";
 import {
+  changePageIndex,
   changePageSize,
   fetchPokemonList,
   fetchPokeProps,
@@ -41,7 +42,6 @@ export class PokemonListComponent implements OnInit, AfterViewInit {
   pageIndex: number = 0
 
 
-
   constructor(
     public loader: LoadingService,
     private pokemonListService: PokemonListService,
@@ -52,8 +52,8 @@ export class PokemonListComponent implements OnInit, AfterViewInit {
     this.store.select(selectPokemonListProps).subscribe(data => this.pokemonList = data.pokemonList);
     this.store.select(selectPokemonListProps).subscribe(data => this.common = data.common);
 
-    // this.pageSize = this.common.pageSize
-    // this.pageIndex = this.common.pageIndex
+    this.pageSize = this.common.pageSize
+    this.pageIndex = this.common.pageIndex
 
   }
 
@@ -65,7 +65,7 @@ export class PokemonListComponent implements OnInit, AfterViewInit {
 
       // this.store.dispatch(
       //   fetchPokemonList({payload: initPoke}))
-      this.store.dispatch(getPokemonList())
+      this.store.dispatch(getPokemonList({pageSize:this.pageSize, pageIndex:this.pageIndex}))
     })
 
 
@@ -89,18 +89,19 @@ export class PokemonListComponent implements OnInit, AfterViewInit {
     this.pageEvent = $event
     this.pageSize = $event.pageSize
     this.pageIndex = $event.pageIndex
+//
+    this.store.dispatch(changePageSize({pageSize: $event.pageSize}))
+    this.store.dispatch(changePageIndex({pageIndex: $event.pageIndex}))
 
-this.store.dispatch(changePageSize({change:this.pageSize}))
+    this.store.dispatch(getPokemonList({pageSize:this.pageSize, pageIndex:this.pageIndex}))
 
-
-    this.pokemonListService.fetchData(this.pageSize, this.pageIndex)
+//
+    this.pokemonListService.fetchData(this.common.pageSize, this.common.pageIndex)
     this.pokemonListService.fetchPokeProps()
     this.pokeList = this.pokemonListService.pokeList$
 
-    // this.pokemonListService.pokeFetchInit$.subscribe(initPoke => {
-    //   this.store.dispatch(fetchPokemonList({payload: initPoke}))
-    // })
-    this.store.dispatch(getPokemonList())
+
+
     this.pokemonListService.pokeList$.subscribe(pokeProps => {
       this.store.dispatch(fetchPokeProps({payload: pokeProps}))
     })

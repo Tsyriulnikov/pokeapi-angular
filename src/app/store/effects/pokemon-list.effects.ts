@@ -18,8 +18,8 @@ export class PokemonListEffects{
     this.actions$.pipe(
       ofType(getPokemonList),
       // exhaustMap(action =>
-      mergeMap(() =>
-      this.pokemonListService.getPokemonList(5,5).pipe(
+      exhaustMap(action =>
+      this.pokemonListService.getPokemonList(action.pageSize, action.pageIndex).pipe(
           map((response) => {
             console.log("response:::", response)
             return getPokemonListSuccess({response})

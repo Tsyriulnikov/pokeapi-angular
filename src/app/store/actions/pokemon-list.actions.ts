@@ -20,10 +20,11 @@ export const fetchPokeProps = createAction(
 //Get PokemonList
 export const getPokemonList = createAction(
   GET_POKEMON_LIST,
+  props<{pageSize:number, pageIndex:number}>()
 )
 export const getPokemonListSuccess = createAction(
   GET_POKEMON_LIST_SUCCESS,
-  props<{response:PokemonResponse}>()
+  props<{ response: PokemonResponse }>()
 )
 
 export const getPokemonListFailure = createAction(
@@ -32,7 +33,11 @@ export const getPokemonListFailure = createAction(
 )
 
 // Change pageSize & pageIndex
-export const changePageSize =createAction(
+export const changePageSize = createAction(
   CHANGE_PAGE_SIZE,
-  props<{change:number}>()
+  props<{ pageSize: number }>()
+)
+export const changePageIndex = createAction(
+  CHANGE_PAGE_INDEX,
+  props<{ pageIndex: number }>()
 )

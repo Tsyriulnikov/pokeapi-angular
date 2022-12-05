@@ -1,6 +1,7 @@
 import {Common, PokemonDetails, PokemonResponse} from "../../models/pokemon-list.models";
 import {createReducer, on} from "@ngrx/store";
 import {
+  changePageIndex,
   changePageSize,
   fetchPokemonList,
   fetchPokeProps,
@@ -11,7 +12,7 @@ import {
 export interface PokemonListState {
   pokemonList: PokemonResponse,
   pokemonDetails: PokemonDetails,
-  common:Common
+  common: Common
 }
 
 const pokemonListInitialState: PokemonListState = {
@@ -24,12 +25,12 @@ const pokemonListInitialState: PokemonListState = {
   pokemonDetails: {
     pokemonProps: []
   },
-  common:{
+  common: {
     pageSize: 5,
     pageIndex: 0,
-    isLoading:false,
-    isLoadingSuccess:false,
-    isLoadingFailure:false,
+    isLoading: false,
+    isLoadingSuccess: false,
+    isLoadingFailure: false,
   }
 
 
@@ -42,17 +43,22 @@ export const pokemonListReducer = createReducer(
 
 //Get pokemonList
 
-on(getPokemonList,(state)=>({...state,common:{...state.common, isLoading: true}})),
-on(getPokemonListSuccess,(state,{response}) => ({...state, pokemonList: response,common:{...state.common,isLoading: false, isLoadingSuccess: true}})),
+  on(getPokemonList, (state) => ({...state, common: {...state.common, isLoading: true}})),
+  on(getPokemonListSuccess, (state, {response}) => ({
+    ...state,
+    pokemonList: response,
+    common: {...state.common, isLoading: false, isLoadingSuccess: true}
+  })),
 
 //Change Page List
-  on(changePageSize, (state,{change})=>({...state,common:{...state.common, pageSize: change}})),
+  on(changePageSize, (state, {pageSize}) => ({...state, common: {...state.common, pageSize: pageSize}})),
+  on(changePageIndex, (state, {pageIndex}) => ({...state, common: {...state.common, pageIndex: pageIndex}}))
 )
 
 export const getPokemons = (state: PokemonListState) => {
   return {
     pokemons: state.pokemonDetails.pokemonProps,
-    pokemonList:state.pokemonList,
-    common:state.common
+    pokemonList: state.pokemonList,
+    common: state.common
   }
 }
