@@ -15,7 +15,9 @@ export interface PokemonDetails {
 }
 
 export interface Common{
-  isLoading?:Boolean
-  isLoadingSucces?:Boolean
-  isLoadingFailure?:Boolean
-}
+  pageSize: number
+  pageIndex: number
+  isLoading:Boolean
+  isLoadingSuccess:Boolean
+  isLoadingFailure:Boolean
+  }
