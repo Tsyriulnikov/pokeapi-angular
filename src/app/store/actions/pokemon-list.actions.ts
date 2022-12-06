@@ -4,6 +4,8 @@ import {PokemonDetails, PokemonResponse} from "../../models/pokemon-list.models"
 export const GET_POKEMON_LIST = '[PokemonList] Get Pokemon List'
 export const GET_POKEMON_LIST_SUCCESS = '[PokemonList] Get Pokemon List Success'
 export const GET_POKEMON_LIST_FAILURE = '[PokemonList] Get Pokemon List Failure'
+export const GET_POKEMON_PROPS = '[PokemonProps] Get Pokemon Props'
+export const GET_POKEMON_PROPS_SUCCESS = '[PokemonProps] Get Pokemon Props Success'
 export const CHANGE_PAGE_SIZE = '[PokemonPage] Change Pokemon List Page'
 export const CHANGE_PAGE_INDEX = '[PokemonPage] Change Pokemon List Index'
 
@@ -40,4 +42,14 @@ export const changePageSize = createAction(
 export const changePageIndex = createAction(
   CHANGE_PAGE_INDEX,
   props<{ pageIndex: number }>()
+)
+
+// Get PokemonProps
+export const getPokemonProps = createAction(
+  GET_POKEMON_PROPS,
+  props<{url:string}>
+)
+export const getPokemonPropsSuccess = createAction(
+  GET_POKEMON_PROPS_SUCCESS,
+  props<{pokemonProps:PokemonDetails}>
 )
