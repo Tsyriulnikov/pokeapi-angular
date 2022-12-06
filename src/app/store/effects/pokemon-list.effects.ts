@@ -1,7 +1,12 @@
 import {Injectable} from "@angular/core";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {PokemonListService} from "../../serrvices/pokemon-list.service";
-import {getPokemonList, getPokemonListFailure, getPokemonListSuccess} from "../actions/pokemon-list.actions";
+import {
+  getPokemonList,
+  getPokemonListFailure,
+  getPokemonListSuccess,
+  getPokemonProps
+} from "../actions/pokemon-list.actions";
 import {map, exhaustMap, catchError, mergeMap} from 'rxjs/operators';
 import {of} from "rxjs";
 
@@ -17,7 +22,6 @@ export class PokemonListEffects{
   getPokemonList$ = createEffect(() =>
     this.actions$.pipe(
       ofType(getPokemonList),
-      // exhaustMap(action =>
       exhaustMap(action =>
       this.pokemonListService.getPokemonList(action.pageSize, action.pageIndex).pipe(
           map((response) => {
@@ -29,7 +33,13 @@ export class PokemonListEffects{
     )
   );
 
-
+// getPokemonProps$ = createEffect(()=>
+// this.actions$.pipe(
+//   ofType(getPokemonProps),
+//   exhaustMap(action =>
+//   this.pokemonListService.getPokemonProps())
+// )
+// )
 
 
 }

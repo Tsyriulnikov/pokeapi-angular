@@ -6,8 +6,10 @@ import {
   fetchPokemonList,
   fetchPokeProps,
   getPokemonList,
-  getPokemonListSuccess
+  getPokemonListSuccess, getPokemonProps, getPokemonPropsSuccess
 } from "../actions/pokemon-list.actions";
+import * as _ from 'lodash';
+
 
 export interface PokemonListState {
   pokemonList: PokemonResponse,
@@ -42,7 +44,6 @@ export const pokemonListReducer = createReducer(
   on(fetchPokeProps, (state, {payload}) => ({...state, pokemonDetails: {pokemonProps: payload}})),
 
 //Get pokemonList
-
   on(getPokemonList, (state) => ({...state, common: {...state.common, isLoading: true}})),
   on(getPokemonListSuccess, (state, {response}) => ({
     ...state,
@@ -50,10 +51,26 @@ export const pokemonListReducer = createReducer(
     common: {...state.common, isLoading: false, isLoadingSuccess: true}
   })),
 
+// Get pokemonProps
+  on(getPokemonProps, (state) => ({...state, common: {...state.common, isLoading: true}})),
+  // on(getPokemonPropsSuccess, (state, {pokemonProps}) => {
+  //   const propsList = undefined !== state.pokemonDetails ? _.cloneDeep(state.pokemonDetails) : []
+  //   const currentProps = undefined !== state.currentPokemonProps ? _.cloneDeep(state.currentPokemonProps) : {}
+  //   // currentTask.id = result.taskId;
+  //   propsList.push(currentProps)
+  //   return {
+  //     tasks,
+  //     isLoading: false,
+  //     isLoadingSuccess: true
+  //   }
+  // }),
+
+
 //Change Page List
   on(changePageSize, (state, {pageSize}) => ({...state, common: {...state.common, pageSize: pageSize}})),
   on(changePageIndex, (state, {pageIndex}) => ({...state, common: {...state.common, pageIndex: pageIndex}}))
 )
+
 
 export const getPokemons = (state: PokemonListState) => {
   return {

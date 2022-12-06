@@ -2,7 +2,7 @@ import {AfterViewInit, ChangeDetectionStrategy, Component, OnInit} from '@angula
 import {LoadingService} from "../../serrvices/loading.service";
 import {PageEvent} from "@angular/material/paginator";
 import {PokemonListService} from "../../serrvices/pokemon-list.service";
-import {map, Observable, takeUntil} from "rxjs";
+import {from, map, Observable, of, takeUntil} from "rxjs";
 import {MatDialog} from "@angular/material/dialog";
 import {PokemonDetailsComponent} from "../pokemon-details/pokemon-details.component";
 import {select, Store} from "@ngrx/store";
@@ -11,7 +11,7 @@ import {
   changePageSize,
   fetchPokemonList,
   fetchPokeProps,
-  getPokemonList
+  getPokemonList, getPokemonProps
 } from "../../store/actions/pokemon-list.actions";
 import {Common, PokemonDetails, PokemonResponse} from "../../models/pokemon-list.models";
 import {selectPokemonListProps, StateApp} from "../../store";
@@ -37,6 +37,7 @@ export class PokemonListComponent implements OnInit, AfterViewInit {
 
   pokemons?: PokemonDetails[] = [];
   pokemonList?: PokemonResponse
+  // pokemonList$?:Observable<PokemonResponse>
   common!: Common
   pageSize: number = 5
   pageIndex: number = 0
@@ -49,12 +50,13 @@ export class PokemonListComponent implements OnInit, AfterViewInit {
     private readonly store: Store<StateApp>
   ) {
     this.store.select(selectPokemonListProps).subscribe(data => this.pokemons = data.pokemons)
-    this.store.select(selectPokemonListProps).subscribe(data => this.pokemonList = data.pokemonList);
-    this.store.select(selectPokemonListProps).subscribe(data => this.common = data.common);
+    this.store.select(selectPokemonListProps).subscribe(data => this.pokemonList = data.pokemonList)
+    this.store.select(selectPokemonListProps).subscribe(data => this.common = data.common)
 
     this.pageSize = this.common.pageSize
     this.pageIndex = this.common.pageIndex
 
+    // this.store.select(selectPokemonListProps).subscribe(data => this.pokemonList$ = from([data.pokemonList]) );
   }
 
 
@@ -63,9 +65,8 @@ export class PokemonListComponent implements OnInit, AfterViewInit {
     this.pokemonListService.pokeFetchInit$.subscribe(initPoke => {
       this.countPokemons = initPoke.count
 
-      // this.store.dispatch(
-      //   fetchPokemonList({payload: initPoke}))
-      this.store.dispatch(getPokemonList({pageSize:this.pageSize, pageIndex:this.pageIndex}))
+
+
     })
 
 
@@ -77,6 +78,9 @@ export class PokemonListComponent implements OnInit, AfterViewInit {
     })
 
 
+    this.store.dispatch(getPokemonList({pageSize:this.pageSize, pageIndex:this.pageIndex}))
+
+    // this.store.subscribe(()=> this.store.dispatch(getPokemonProps({pokemonList:this.pokemonList?.results})))
     console.log(this.pokemonList)
 
   }
