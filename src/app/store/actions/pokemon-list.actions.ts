@@ -52,5 +52,5 @@ export const getPokemonProps = createAction(
 )
 export const getPokemonPropsSuccess = createAction(
   GET_POKEMON_PROPS_SUCCESS,
-  props<{pokemonProps:PokemonDetails}>()
+  props<{pokemonProps:PokemonDetails[]}>()
 )

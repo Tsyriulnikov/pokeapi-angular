@@ -37,7 +37,7 @@ export class PokemonListComponent implements OnInit, AfterViewInit {
 
   pokemons?: PokemonDetails[] = [];
   pokemonList?: PokemonResponse
-  pokemonList$?:Observable<any>
+  pokemonList$!:Observable<PokemonResponse>
   common!: Common
   pageSize: number = 5
   pageIndex: number = 0
@@ -56,9 +56,9 @@ export class PokemonListComponent implements OnInit, AfterViewInit {
     this.pageSize = this.common.pageSize
     this.pageIndex = this.common.pageIndex
 //
-//     this.pokemonList$=this.store.select(selectPokemonListProps)
-// this.pokemonList$.subscribe(data=>this.store.dispatch(getPokemonProps(data.pokemonList)))
-    // this.store.select(selectPokemonListProps).subscribe(data => this.pokemonList$ = from([data.pokemonList]) );
+
+
+//
   }
 
 
@@ -82,8 +82,14 @@ export class PokemonListComponent implements OnInit, AfterViewInit {
 
     this.store.dispatch(getPokemonList({pageSize:this.pageSize, pageIndex:this.pageIndex}))
 
+
+
     // this.store.subscribe(()=> this.store.dispatch(getPokemonProps({pokemonList:this.pokemonList?.results})))
-    console.log(this.pokemonList)
+    // console.log(this.pokemonList)
+
+
+// this.pokemonList$.subscribe(data=>this.store.dispatch(getPokemonProps(data)))
+//     this.pokemonList$.subscribe()
 
   }
 
@@ -111,7 +117,7 @@ export class PokemonListComponent implements OnInit, AfterViewInit {
     this.pokemonListService.pokeList$.subscribe(pokeProps => {
       this.store.dispatch(fetchPokeProps({payload: pokeProps}))
     })
-    console.log(this.pokemonList)
+    // console.log(this.pokemonList)
   }
 
   openDialog(row: any) {

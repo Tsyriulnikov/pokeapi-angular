@@ -13,20 +13,20 @@ import {PokemonDetails} from "../../models/pokemon-list.models";
 
 
 @Injectable()
-export class PokemonListEffects{
+export class PokemonListEffects {
   constructor(
     private actions$: Actions,
-    private pokemonListService:PokemonListService
-  ) {}
+    private pokemonListService: PokemonListService
+  ) {
+  }
 
 
   getPokemonList$ = createEffect(() =>
     this.actions$.pipe(
       ofType(getPokemonList),
       exhaustMap(action =>
-      this.pokemonListService.getPokemonList(action.pageSize, action.pageIndex).pipe(
+        this.pokemonListService.getPokemonList(action.pageSize, action.pageIndex).pipe(
           map((response) => {
-            console.log("response:::", response)
             return getPokemonListSuccess({response})
           }),
           catchError((error: any) => of(getPokemonListFailure(error))))
@@ -38,12 +38,10 @@ export class PokemonListEffects{
     this.actions$.pipe(
       ofType(getPokemonProps),
       exhaustMap(action =>
-
-
         this.pokemonListService.getPokemonProps(action.pokemonList).pipe(
-          map((response) => {
-            console.log("response:::", response)
-            return getPokemonPropsSuccess({response})
+          map((pokemonProps) => {
+            console.log("response:::", pokemonProps)
+            return getPokemonPropsSuccess({pokemonProps})
           }),
           catchError((error: any) => of(getPokemonListFailure(error))))
       )
@@ -51,33 +49,5 @@ export class PokemonListEffects{
   );
 
 
-
-
-
-
-        // action.pokemonList.pipe(
-        //     mergeMap(pokemons => {
-        //       const pokemonProps = pokemons.results.map(el => this.http.get<PokemonDetails>(el.url))
-        //       return forkJoin(pokemonProps)
-        //     })
-        //   ).subscribe(res => {
-        //   this.pokeList$.next(res)
-        // })
-
-
-
-
-
-
-        // this.pokemonListService.getPokemonProps(action.pokemonList.results[0].url).pipe(
-  //       this.pokemonListService.getPokemonProps(action.pokemonList).pipe(
-  //         map((response) => {
-  //           console.log("response:::", response)
-  //           return getPokemonPropsSuccess({response})
-  //         }),
-  //         catchError((error: any) => of(getPokemonListFailure(error))))
-  //     )
-  //   )
-  // );
 
 }

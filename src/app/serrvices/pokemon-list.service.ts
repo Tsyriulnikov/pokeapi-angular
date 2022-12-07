@@ -39,7 +39,7 @@ export class PokemonListService {
   }
 
   getPokemonProps(url: string) {
-    return this.http.get<PokemonDetails>(url)
+    return this.http.get<PokemonDetails[]>(url)
   }
 
 
