@@ -37,7 +37,7 @@ export class PokemonListComponent implements OnInit, AfterViewInit {
 
   pokemons?: PokemonDetails[] = [];
   pokemonList?: PokemonResponse
-  // pokemonList$?:Observable<PokemonResponse>
+  pokemonList$?:Observable<any>
   common!: Common
   pageSize: number = 5
   pageIndex: number = 0
@@ -55,7 +55,9 @@ export class PokemonListComponent implements OnInit, AfterViewInit {
 
     this.pageSize = this.common.pageSize
     this.pageIndex = this.common.pageIndex
-
+//
+//     this.pokemonList$=this.store.select(selectPokemonListProps)
+// this.pokemonList$.subscribe(data=>this.store.dispatch(getPokemonProps(data.pokemonList)))
     // this.store.select(selectPokemonListProps).subscribe(data => this.pokemonList$ = from([data.pokemonList]) );
   }
 

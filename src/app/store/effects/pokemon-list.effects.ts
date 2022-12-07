@@ -5,10 +5,11 @@ import {
   getPokemonList,
   getPokemonListFailure,
   getPokemonListSuccess,
-  getPokemonProps
+  getPokemonProps, getPokemonPropsSuccess
 } from "../actions/pokemon-list.actions";
 import {map, exhaustMap, catchError, mergeMap} from 'rxjs/operators';
-import {of} from "rxjs";
+import {forkJoin, of} from "rxjs";
+import {PokemonDetails} from "../../models/pokemon-list.models";
 
 
 @Injectable()
@@ -33,13 +34,50 @@ export class PokemonListEffects{
     )
   );
 
-// getPokemonProps$ = createEffect(()=>
-// this.actions$.pipe(
-//   ofType(getPokemonProps),
-//   exhaustMap(action =>
-//   this.pokemonListService.getPokemonProps())
-// )
-// )
+  getPokemonProps$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(getPokemonProps),
+      exhaustMap(action =>
 
+
+        this.pokemonListService.getPokemonProps(action.pokemonList).pipe(
+          map((response) => {
+            console.log("response:::", response)
+            return getPokemonPropsSuccess({response})
+          }),
+          catchError((error: any) => of(getPokemonListFailure(error))))
+      )
+    )
+  );
+
+
+
+
+
+
+        // action.pokemonList.pipe(
+        //     mergeMap(pokemons => {
+        //       const pokemonProps = pokemons.results.map(el => this.http.get<PokemonDetails>(el.url))
+        //       return forkJoin(pokemonProps)
+        //     })
+        //   ).subscribe(res => {
+        //   this.pokeList$.next(res)
+        // })
+
+
+
+
+
+
+        // this.pokemonListService.getPokemonProps(action.pokemonList.results[0].url).pipe(
+  //       this.pokemonListService.getPokemonProps(action.pokemonList).pipe(
+  //         map((response) => {
+  //           console.log("response:::", response)
+  //           return getPokemonPropsSuccess({response})
+  //         }),
+  //         catchError((error: any) => of(getPokemonListFailure(error))))
+  //     )
+  //   )
+  // );
 
 }

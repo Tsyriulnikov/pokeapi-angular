@@ -53,6 +53,11 @@ export const pokemonListReducer = createReducer(
 
 // Get pokemonProps
   on(getPokemonProps, (state) => ({...state, common: {...state.common, isLoading: true}})),
+  // on(getPokemonPropsSuccess, (state, {pokemonProps}) => ({
+  //   ...state,
+  //   common: {...state.common, isLoading: false, isLoadingSuccess: true,isLoadingFailure: true}
+  // })),
+
   // on(getPokemonPropsSuccess, (state, {pokemonProps}) => {
   //   const propsList = undefined !== state.pokemonDetails ? _.cloneDeep(state.pokemonDetails) : []
   //   const currentProps = undefined !== state.currentPokemonProps ? _.cloneDeep(state.currentPokemonProps) : {}

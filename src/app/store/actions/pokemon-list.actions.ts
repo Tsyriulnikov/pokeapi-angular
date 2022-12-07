@@ -47,7 +47,8 @@ export const changePageIndex = createAction(
 // Get PokemonProps
 export const getPokemonProps = createAction(
   GET_POKEMON_PROPS,
-  props<{pokemonList:PokemonResponse}>()
+  // props<{pokemonList:PokemonResponse}>()
+  props<{pokemonList:string}>()
 )
 export const getPokemonPropsSuccess = createAction(
   GET_POKEMON_PROPS_SUCCESS,
