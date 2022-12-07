@@ -77,10 +77,10 @@ export const pokemonListReducer = createReducer(
 )
 
 
-export const getPokemons = (state: PokemonListState) => {
-  return {
-    pokemons: state.pokemonDetails.pokemonProps,
-    pokemonList: state.pokemonList,
-    common: state.common
-  }
-}
+// export const getPokemons = (state: PokemonListState) => {
+//   return {
+//     pokemons: state.pokemonDetails.pokemonProps,
+//     pokemonList: state.pokemonList,
+//     common: state.common
+//   }
+// }

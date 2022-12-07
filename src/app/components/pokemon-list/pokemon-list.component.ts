@@ -13,8 +13,8 @@ import {
   fetchPokeProps,
   getPokemonList, getPokemonProps
 } from "../../store/actions/pokemon-list.actions";
-import {Common, PokemonDetails, PokemonResponse} from "../../models/pokemon-list.models";
-import {selectPokemonListProps, StateApp} from "../../store";
+import {Common, PokemonDetails, PokemonResponse, PokemonResponseResults} from "../../models/pokemon-list.models";
+import {selectPageIndex, selectPageSize, selectPokemonList, selectPokemonProps, StateApp} from "../../store";
 
 
 @Component({
@@ -36,7 +36,7 @@ export class PokemonListComponent implements OnInit, AfterViewInit {
 
 
   pokemons?: PokemonDetails[] = [];
-  pokemonList?: PokemonResponse
+  pokemonList!: PokemonResponseResults[]
   pokemonList$!:Observable<PokemonResponse>
   common!: Common
   pageSize: number = 5
@@ -49,13 +49,13 @@ export class PokemonListComponent implements OnInit, AfterViewInit {
     public dialog: MatDialog,
     private readonly store: Store<StateApp>
   ) {
-    this.store.select(selectPokemonListProps).subscribe(data => this.pokemons = data.pokemons)
-    this.store.select(selectPokemonListProps).subscribe(data => this.pokemonList = data.pokemonList)
-    this.store.select(selectPokemonListProps).subscribe(data => this.common = data.common)
+    this.store.select(selectPokemonProps).subscribe(data => this.pokemons = data)
+    this.store.select(selectPokemonList).subscribe(data => this.pokemonList = data)
+    this.store.select(selectPageSize).subscribe(data => this.pageSize = data)
+    this.store.select(selectPageIndex).subscribe(data => this.pageIndex = data)
 
-    this.pageSize = this.common.pageSize
-    this.pageIndex = this.common.pageIndex
-//
+    //
+// this.pokemonList$ =this.store.select(selectPokemonListProps)
 
 
 //
@@ -82,7 +82,7 @@ export class PokemonListComponent implements OnInit, AfterViewInit {
 
     this.store.dispatch(getPokemonList({pageSize:this.pageSize, pageIndex:this.pageIndex}))
 
-
+    // this.store.dispatch(getPokemonProps({pokemonList:this.pokemonList.results[0].url}))
 
     // this.store.subscribe(()=> this.store.dispatch(getPokemonProps({pokemonList:this.pokemonList?.results})))
     // console.log(this.pokemonList)
