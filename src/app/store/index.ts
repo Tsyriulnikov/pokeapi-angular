@@ -1,26 +1,22 @@
 import {ActionReducerMap, createFeatureSelector, createSelector} from "@ngrx/store";
-import * as PokemonList from './reducers/pokemon-list.reducer';
 import {Common, PokemonDetails, PokemonResponse} from "../models/pokemon-list.models";
+import { PokemonListState, reducer} from "./reducers/pokemon-list.reducer";
 
 
 
 export interface StateApp {
-  pokemonList: PokemonResponse,
-  pokemonDetails: PokemonDetails,
-  common: Common
+  pokemonList:PokemonListState
 }
 
 export const reducers: ActionReducerMap<StateApp> = {
-  pokemonList: PokemonList.pokemonListReducer,
-  pokemonDetails: PokemonList.pokemonListReducer,
-  common: PokemonList.pokemonListReducer
-}
+  pokemonList: reducer,
+  }
 
 
 
-const _selectPokemonList = (state: StateApp) => state.pokemonList;
-const _selectPokemonProps = (state: StateApp) => state.pokemonDetails;
-const _selectCommon = (state: StateApp) => state.common;
+const _selectPokemonList = (state: StateApp) => state.pokemonList.pokemonList;
+const _selectPokemonProps = (state: StateApp) => state.pokemonList.pokemonDetails;
+const _selectCommon = (state: StateApp) => state.pokemonList.common;
 
 export const selectPokemonList = createSelector(
   _selectPokemonList,

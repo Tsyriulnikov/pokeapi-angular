@@ -1,5 +1,5 @@
 import {createAction, props} from "@ngrx/store";
-import {PokemonDetails, PokemonResponse} from "../../models/pokemon-list.models";
+import {PokemonDetails, PokemonResponse, PokemonResponseResults} from "../../models/pokemon-list.models";
 
 export const GET_POKEMON_LIST = '[PokemonList] Get Pokemon List'
 export const GET_POKEMON_LIST_SUCCESS = '[PokemonList] Get Pokemon List Success'
@@ -48,9 +48,9 @@ export const changePageIndex = createAction(
 export const getPokemonProps = createAction(
   GET_POKEMON_PROPS,
   // props<{pokemonList:PokemonResponse}>()
-  props<{pokemonList:string}>()
+  props<{pokemonList:PokemonResponseResults[]}>()
 )
 export const getPokemonPropsSuccess = createAction(
   GET_POKEMON_PROPS_SUCCESS,
-  props<{pokemonProps:PokemonDetails[]}>()
+  props<{pokemonProps:any}>()
 )

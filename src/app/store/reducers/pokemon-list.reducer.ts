@@ -1,5 +1,5 @@
 import {Common, PokemonDetails, PokemonResponse} from "../../models/pokemon-list.models";
-import {createReducer, on} from "@ngrx/store";
+import {Action, createReducer, on} from "@ngrx/store";
 import {
   changePageIndex,
   changePageSize,
@@ -12,13 +12,13 @@ import * as _ from 'lodash';
 import {StateApp} from "../index";
 
 
-// export interface PokemonListState {
-//   pokemonList: PokemonResponse,
-//   pokemonDetails: PokemonDetails,
-//   common: Common
-// }
+export interface PokemonListState {
+  pokemonList: PokemonResponse,
+  pokemonDetails: PokemonDetails,
+  common: Common
+}
 
-const pokemonListInitialState: StateApp = {
+const pokemonListInitialState: PokemonListState = {
   pokemonList: {
     count: 0,
     next: null,
@@ -85,3 +85,7 @@ export const pokemonListReducer = createReducer(
 //     common: state.common
 //   }
 // }
+
+export function reducer(state: PokemonListState | undefined, action: Action): any {
+  return pokemonListReducer(state, action);
+}

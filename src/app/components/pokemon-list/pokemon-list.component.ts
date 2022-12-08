@@ -40,31 +40,41 @@ export class PokemonListComponent implements OnInit, AfterViewInit {
   pokemonList!: PokemonResponseResults[]
   pokemonList$!:Observable<PokemonResponse>
   common!: Common
-  pageSize: number = 5
-  pageIndex: number = 0
+  pageSize: number
+  pageIndex: number
 
+  pageSizeFromState!:number
+  pageIndexFromState!:number
 
   constructor(
     public loader: LoadingService,
     private pokemonListService: PokemonListService,
     public dialog: MatDialog,
-    private readonly store: Store<StateApp>
+    private readonly store: Store<StateApp>,
   ) {
     this.store.pipe(select(selectPokemonProps)).subscribe(data => this.pokemons = data)
-    this.store.pipe(select(selectPokemonList)).subscribe(data => this.pokemonList = data)
-    this.store.pipe(select(selectPageSize)).subscribe(data => this.pageSize = data)
-    this.store.pipe(select(selectPageIndex)).subscribe(data => this.pageIndex = data)
+    this.store.pipe(select(selectPokemonList)).subscribe(data => this.store.dispatch(getPokemonProps({pokemonList:data})))
+    this.store.pipe(select(selectPageSize)).subscribe(data => this.pageSizeFromState = data)
+    this.store.pipe(select(selectPageIndex)).subscribe(data => this.pageIndexFromState = data)
+
+    // this.store.select(selectPageSize)
+    // .subscribe(data => this.pageSizeFromState = data);
+    // this.store.select(selectPageIndex)
+    //   .subscribe(data => this.pageIndexFromState = data);
 
     //
 // this.pokemonList$ =this.store.select(selectPokemonListProps)
 
 
 //
+
+    this.pageSize = this.pageSizeFromState
+    this.pageIndex = this.pageIndexFromState
   }
 
 
   ngOnInit(): void {
-    this.pokemonListService.fetchData(this.pageSize, this.pageIndex)
+    this.pokemonListService.fetchData(this.pageSizeFromState, this.pageIndexFromState)
     this.pokemonListService.pokeFetchInit$.subscribe(initPoke => {
       this.countPokemons = initPoke.count
 
@@ -81,7 +91,7 @@ export class PokemonListComponent implements OnInit, AfterViewInit {
     })
 
 
-    this.store.dispatch(getPokemonList({pageSize:this.pageSize, pageIndex:this.pageIndex}))
+    this.store.dispatch(getPokemonList({pageSize:this.pageSizeFromState, pageIndex:this.pageIndexFromState}))
 
     // this.store.dispatch(getPokemonProps({pokemonList:this.pokemonList.results[0].url}))
 
@@ -100,16 +110,17 @@ export class PokemonListComponent implements OnInit, AfterViewInit {
 
   handlePageEvent($event: PageEvent) {
     this.pageEvent = $event
-    this.pageSize = $event.pageSize
-    this.pageIndex = $event.pageIndex
+    // this.pageSize = $event.pageSize
+    // this.pageIndex = $event.pageIndex
 //
     this.store.dispatch(changePageSize({pageSize: $event.pageSize}))
     this.store.dispatch(changePageIndex({pageIndex: $event.pageIndex}))
 
-    this.store.dispatch(getPokemonList({pageSize:this.pageSize, pageIndex:this.pageIndex}))
+
+    this.store.dispatch(getPokemonList({pageSize:this.pageSizeFromState, pageIndex:this.pageIndexFromState}))
 
 //
-    this.pokemonListService.fetchData(this.common.pageSize, this.common.pageIndex)
+    this.pokemonListService.fetchData(this.pageSizeFromState, this.pageIndexFromState)
     this.pokemonListService.fetchPokeProps()
     this.pokeList = this.pokemonListService.pokeList$
 
