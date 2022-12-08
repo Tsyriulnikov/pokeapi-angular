@@ -2,9 +2,9 @@
   <div class="overlay"></div>
   <mat-progress-spinner [mode]="'indeterminate'"></mat-progress-spinner>
 </ng-container>
-<!--<div *ngFor="let poke of f | async">{{poke}}</div>-->
+
 <div class="table-container">
-<table mat-table [dataSource]="pokeList" class="mat-elevation-z8">
+<table mat-table [dataSource]="pokemons!" class="mat-elevation-z8">
 
   <!-- Id Column -->
   <ng-container matColumnDef="id">
@@ -30,7 +30,7 @@
 </table>
 
 </div>
-<mat-paginator [length]="countPokemons"
+<mat-paginator [length]="countPokemons$ | async"
                [pageSize]="pageSize"
                [pageSizeOptions]="pageSizeOptions"
                (page)="handlePageEvent($event)"

@@ -3,14 +3,9 @@ import {Action, createReducer, on} from "@ngrx/store";
 import {
   changePageIndex,
   changePageSize,
-  fetchPokemonList,
-  fetchPokeProps,
   getPokemonList,
   getPokemonListSuccess, getPokemonProps, getPokemonPropsSuccess
 } from "../actions/pokemon-list.actions";
-import * as _ from 'lodash';
-import {StateApp} from "../index";
-
 
 export interface PokemonListState {
   pokemonList: PokemonResponse,
@@ -35,14 +30,10 @@ const pokemonListInitialState: PokemonListState = {
     isLoadingSuccess: false,
     isLoadingFailure: false,
   }
-
-
 }
 
 export const pokemonListReducer = createReducer(
   pokemonListInitialState,
-  on(fetchPokemonList, (state, {payload}) => ({...state, pokemonList: payload})),
-  on(fetchPokeProps, (state, {payload}) => ({...state, pokemonDetails: {pokemonProps: payload}})),
 
 //Get pokemonList
   on(getPokemonList, (state) => ({...state, common: {...state.common, isLoading: true}})),
@@ -54,37 +45,16 @@ export const pokemonListReducer = createReducer(
 
 // Get pokemonProps
   on(getPokemonProps, (state) => ({...state, common: {...state.common, isLoading: true}})),
-  // on(getPokemonPropsSuccess, (state, {pokemonProps}) => ({
-  //   ...state,
-  //   common: {...state.common, isLoading: false, isLoadingSuccess: true,isLoadingFailure: true}
-  // })),
-
-  // on(getPokemonPropsSuccess, (state, {pokemonProps}) => {
-  //   const propsList = undefined !== state.pokemonDetails ? _.cloneDeep(state.pokemonDetails) : []
-  //   const currentProps = undefined !== state.currentPokemonProps ? _.cloneDeep(state.currentPokemonProps) : {}
-  //   // currentTask.id = result.taskId;
-  //   propsList.push(currentProps)
-  //   return {
-  //     tasks,
-  //     isLoading: false,
-  //     isLoadingSuccess: true
-  //   }
-  // }),
-
+  on(getPokemonPropsSuccess, (state, {pokemonProps}) => ({
+    ...state,
+    pokemonDetails: {pokemonProps: pokemonProps},
+    common: {...state.common, isLoading: false, isLoadingSuccess: true}
+  })),
 
 //Change Page List
   on(changePageSize, (state, {pageSize}) => ({...state, common: {...state.common, pageSize: pageSize}})),
   on(changePageIndex, (state, {pageIndex}) => ({...state, common: {...state.common, pageIndex: pageIndex}}))
 )
-
-
-// export const getPokemons = (state: PokemonListState) => {
-//   return {
-//     pokemons: state.pokemonDetails.pokemonProps,
-//     pokemonList: state.pokemonList,
-//     common: state.common
-//   }
-// }
 
 export function reducer(state: PokemonListState | undefined, action: Action): any {
   return pokemonListReducer(state, action);

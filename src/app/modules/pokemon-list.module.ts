@@ -29,7 +29,7 @@ import {reducers} from "../store";
     MatTableModule,
     MatPaginatorModule,
     MatDialogModule,
-    StoreModule.forFeature('pokemons', pokemonListReducer),
+    StoreModule.forFeature('pokemonList', pokemonListReducer),
     StoreDevtoolsModule.instrument({
       maxAge: 25
     }),

@@ -34,5 +34,8 @@ export const selectPageIndex = createSelector(
   _selectCommon,
   (state:Common) => state.pageIndex
 )
-
+export const selectQuantityPokemons = createSelector(
+  _selectPokemonList,
+  (state:PokemonResponse) => state.count
+)
 
