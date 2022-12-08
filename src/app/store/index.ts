@@ -5,18 +5,22 @@ import {Common, PokemonDetails, PokemonResponse} from "../models/pokemon-list.mo
 
 
 export interface StateApp {
-  pokemonList: PokemonList.PokemonListState
+  pokemonList: PokemonResponse,
+  pokemonDetails: PokemonDetails,
+  common: Common
 }
 
 export const reducers: ActionReducerMap<StateApp> = {
-  pokemonList: PokemonList.pokemonListReducer
+  pokemonList: PokemonList.pokemonListReducer,
+  pokemonDetails: PokemonList.pokemonListReducer,
+  common: PokemonList.pokemonListReducer
 }
 
 
 
-const _selectPokemonList = (state: StateApp) => state.pokemonList.pokemonList;
-const _selectPokemonProps = (state: StateApp) => state.pokemonList.pokemonDetails;
-const _selectCommon = (state: StateApp) => state.pokemonList.common;
+const _selectPokemonList = (state: StateApp) => state.pokemonList;
+const _selectPokemonProps = (state: StateApp) => state.pokemonDetails;
+const _selectCommon = (state: StateApp) => state.common;
 
 export const selectPokemonList = createSelector(
   _selectPokemonList,

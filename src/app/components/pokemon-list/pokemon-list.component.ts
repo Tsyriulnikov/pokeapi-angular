@@ -17,6 +17,7 @@ import {Common, PokemonDetails, PokemonResponse, PokemonResponseResults} from ".
 import {selectPageIndex, selectPageSize, selectPokemonList, selectPokemonProps, StateApp} from "../../store";
 
 
+
 @Component({
   selector: 'app-pokemon-list',
   templateUrl: './pokemon-list.component.html',
@@ -49,10 +50,10 @@ export class PokemonListComponent implements OnInit, AfterViewInit {
     public dialog: MatDialog,
     private readonly store: Store<StateApp>
   ) {
-    this.store.select(selectPokemonProps).subscribe(data => this.pokemons = data)
-    this.store.select(selectPokemonList).subscribe(data => this.pokemonList = data)
-    this.store.select(selectPageSize).subscribe(data => this.pageSize = data)
-    this.store.select(selectPageIndex).subscribe(data => this.pageIndex = data)
+    this.store.pipe(select(selectPokemonProps)).subscribe(data => this.pokemons = data)
+    this.store.pipe(select(selectPokemonList)).subscribe(data => this.pokemonList = data)
+    this.store.pipe(select(selectPageSize)).subscribe(data => this.pageSize = data)
+    this.store.pipe(select(selectPageIndex)).subscribe(data => this.pageIndex = data)
 
     //
 // this.pokemonList$ =this.store.select(selectPokemonListProps)

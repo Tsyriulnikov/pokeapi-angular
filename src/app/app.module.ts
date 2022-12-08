@@ -27,7 +27,7 @@ import {PokemonListEffects} from "./store/effects";
     PokemonListModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    StoreModule.forRoot({}, {}),
+    StoreModule.forRoot(reducers),
     StoreDevtoolsModule.instrument({
       maxAge: 25
     }),

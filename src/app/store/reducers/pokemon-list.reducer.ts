@@ -9,15 +9,16 @@ import {
   getPokemonListSuccess, getPokemonProps, getPokemonPropsSuccess
 } from "../actions/pokemon-list.actions";
 import * as _ from 'lodash';
+import {StateApp} from "../index";
 
 
-export interface PokemonListState {
-  pokemonList: PokemonResponse,
-  pokemonDetails: PokemonDetails,
-  common: Common
-}
+// export interface PokemonListState {
+//   pokemonList: PokemonResponse,
+//   pokemonDetails: PokemonDetails,
+//   common: Common
+// }
 
-const pokemonListInitialState: PokemonListState = {
+const pokemonListInitialState: StateApp = {
   pokemonList: {
     count: 0,
     next: null,

@@ -13,6 +13,7 @@ import {pokemonListReducer} from "../store/reducers/pokemon-list.reducer";
 import {StoreDevtoolsModule} from "@ngrx/store-devtools";
 import {EffectsModule} from "@ngrx/effects";
 import {PokemonListEffects} from "../store/effects/pokemon-list.effects";
+import {reducers} from "../store";
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import {PokemonListEffects} from "../store/effects/pokemon-list.effects";
     MatTableModule,
     MatPaginatorModule,
     MatDialogModule,
-    StoreModule.forFeature('pokemons', pokemonListReducer),
+    // StoreModule.forFeature('pokemons', pokemonListReducer),
+
     StoreDevtoolsModule.instrument({
       maxAge: 25
     }),
