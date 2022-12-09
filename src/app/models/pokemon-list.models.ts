@@ -11,7 +11,7 @@ export interface PokemonResponseResults {
 }
 
 export interface PokemonDetails {
-  pokemonProps?:any[]
+  pokemonProps:any[]
 }
 
 export interface Common{
