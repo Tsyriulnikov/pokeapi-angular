@@ -69,7 +69,7 @@ export class PokemonListComponent implements OnInit, OnDestroy {
   }
 
   openDialog(row: any) {
-    this.dialog.open(PokemonDetailsComponent, {data: row});
+    this.dialog.open(PokemonDetailsComponent, {data: row, height:'90%', width:'70%', panelClass:'modalContainer'});
   }
 
   ngOnDestroy() {
