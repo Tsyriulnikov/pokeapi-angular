@@ -46,4 +46,21 @@ export class PokemonListEffects {
             }),
             catchError((error: any) => of(getPokemonListFailure(error))))
       )))
+
+  getPokemonAbility$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(getPokemonList),
+      exhaustMap(action =>
+        this.pokemonListService.getPokemonList(action.pageSize, action.pageIndex).pipe(
+          map((response) => {
+            return getPokemonListSuccess({response})
+          }),
+          catchError((error: any) => of(getPokemonListFailure(error))))
+      )
+    )
+  );
+
+
+
+
 }
