@@ -23,5 +23,5 @@ export interface Common{
   }
 
 export interface PokemonAbility {
-  ability?:any
+  ability:any
 }

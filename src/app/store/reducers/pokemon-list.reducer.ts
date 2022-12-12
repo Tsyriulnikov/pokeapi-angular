@@ -2,7 +2,7 @@ import {Common, PokemonAbility, PokemonDetails, PokemonResponse} from "../../mod
 import {Action, createReducer, on} from "@ngrx/store";
 import {
   changePageIndex,
-  changePageSize,
+  changePageSize, getPokemonAbility, getPokemonAbilitySuccess,
   getPokemonList,
   getPokemonListSuccess, getPokemonProps, getPokemonPropsSuccess
 } from "../actions/pokemon-list.actions";
@@ -11,7 +11,7 @@ export interface PokemonListState {
   pokemonList: PokemonResponse,
   pokemonDetails: PokemonDetails,
   common: Common,
-  pokemonAbility:PokemonAbility,
+  pokemonAbility: PokemonAbility,
 }
 
 const pokemonListInitialState: PokemonListState = {
@@ -31,7 +31,9 @@ const pokemonListInitialState: PokemonListState = {
     isLoadingSuccess: false,
     isLoadingFailure: false,
   },
-  pokemonAbility:{}
+  pokemonAbility: {
+    ability: {}
+  }
 }
 
 export const pokemonListReducer = createReducer(
@@ -55,8 +57,17 @@ export const pokemonListReducer = createReducer(
 
 //Change Page List
   on(changePageSize, (state, {pageSize}) => ({...state, common: {...state.common, pageSize: pageSize}})),
-  on(changePageIndex, (state, {pageIndex}) => ({...state, common: {...state.common, pageIndex: pageIndex}}))
+  on(changePageIndex, (state, {pageIndex}) => ({...state, common: {...state.common, pageIndex: pageIndex}})),
+
+//Get ability pokemons
+  on(getPokemonAbility, (state) => ({...state, common: {...state.common, isLoading: true}})),
+  on(getPokemonAbilitySuccess, (state, {pokemonAbility}) => ({
+    ...state,
+    pokemonAbility: {ability: pokemonAbility},
+    common: {...state.common, isLoading: false, isLoadingSuccess: true},
+  })),
 )
+
 
 export function reducer(state: PokemonListState | undefined, action: Action): any {
   return pokemonListReducer(state, action);
