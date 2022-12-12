@@ -21,3 +21,7 @@ export interface Common{
   isLoadingSuccess:Boolean
   isLoadingFailure:Boolean
   }
+
+export interface PokemonAbility {
+  ability?:any
+}

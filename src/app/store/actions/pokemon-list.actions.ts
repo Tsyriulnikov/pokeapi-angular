@@ -45,9 +45,11 @@ export const getPokemonPropsSuccess = createAction(
   props<{ pokemonProps: any }>()
 )
 
-export  const getPokemonAbility = createAction(
-   GET_POKEMON_ABILITY,
- )
+export const getPokemonAbility = createAction(
+  GET_POKEMON_ABILITY,
+  props<{ urlAbility: string }>()
+)
 export const getPokemonAbilitySuccess = createAction(
   GET_POKEMON_ABILITY_SUCCESS,
+  props<{ pokemonAbility: any }>()
 )

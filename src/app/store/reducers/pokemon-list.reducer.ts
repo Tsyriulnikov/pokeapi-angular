@@ -1,4 +1,4 @@
-import {Common, PokemonDetails, PokemonResponse} from "../../models/pokemon-list.models";
+import {Common, PokemonAbility, PokemonDetails, PokemonResponse} from "../../models/pokemon-list.models";
 import {Action, createReducer, on} from "@ngrx/store";
 import {
   changePageIndex,
@@ -10,7 +10,8 @@ import {
 export interface PokemonListState {
   pokemonList: PokemonResponse,
   pokemonDetails: PokemonDetails,
-  common: Common
+  common: Common,
+  pokemonAbility:PokemonAbility,
 }
 
 const pokemonListInitialState: PokemonListState = {
@@ -29,7 +30,8 @@ const pokemonListInitialState: PokemonListState = {
     isLoading: false,
     isLoadingSuccess: false,
     isLoadingFailure: false,
-  }
+  },
+  pokemonAbility:{}
 }
 
 export const pokemonListReducer = createReducer(

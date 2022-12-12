@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {PokemonListService} from "../../serrvices/pokemon-list.service";
 import {
+  getPokemonAbility, getPokemonAbilitySuccess,
   getPokemonList,
   getPokemonListFailure,
   getPokemonListSuccess,
@@ -49,18 +50,16 @@ export class PokemonListEffects {
 
   getPokemonAbility$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(getPokemonList),
+      ofType(getPokemonAbility),
       exhaustMap(action =>
-        this.pokemonListService.getPokemonList(action.pageSize, action.pageIndex).pipe(
-          map((response) => {
-            return getPokemonListSuccess({response})
+        this.pokemonListService.getPokemonAbility(action.urlAbility).pipe(
+          map((pokemonAbility) => {
+            return getPokemonAbilitySuccess({pokemonAbility})
           }),
           catchError((error: any) => of(getPokemonListFailure(error))))
       )
     )
   );
-
-
 
 
 }
