@@ -1,7 +1,6 @@
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
 import {LoadingService} from "../../serrvices/loading.service";
 import {PageEvent} from "@angular/material/paginator";
-import {PokemonListService} from "../../serrvices/pokemon-list.service";
 import {Observable, Subject, takeUntil} from "rxjs";
 import {MatDialog} from "@angular/material/dialog";
 import {PokemonDetailsComponent} from "../pokemon-details/pokemon-details.component";
@@ -42,7 +41,6 @@ export class PokemonListComponent implements OnInit, OnDestroy {
 
   constructor(
     public loader: LoadingService,
-    private pokemonListService: PokemonListService,
     public dialog: MatDialog,
     private readonly store: Store<StateApp>,
   ) {
