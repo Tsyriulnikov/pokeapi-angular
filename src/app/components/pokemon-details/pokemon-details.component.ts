@@ -33,7 +33,7 @@ export class PokemonDetailsComponent implements OnInit {
     private readonly store: Store<StateApp>
   ) {
 
-    this.ability$ = this.store.pipe(select(selectAbility.effect_entries[0].))
+    // this.ability$ = this.store.pipe(select(selectAbility.effect_entries[0].))
 
 
   }
