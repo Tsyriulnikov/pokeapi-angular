@@ -32,7 +32,15 @@ const pokemonListInitialState: PokemonListState = {
     isLoadingFailure: false,
   },
   pokemonAbility: {
-    ability: {}
+    ability: {
+      effect_entries: [{
+        effect: '',
+        language: {
+          name: '',
+          url: '',
+        },
+      }]
+    }
   }
 }
 

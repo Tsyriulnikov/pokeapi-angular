@@ -12,9 +12,12 @@ import {PokemonAbility} from "../../models/pokemon-list.models";
   styleUrls: ['./pokemon-details.component.scss']
 })
 export class PokemonDetailsComponent implements OnInit, OnDestroy {
-  ability$!: Observable<PokemonAbility>
+
   private destroy$ = new Subject<void>()
-  ability?: any
+  ability?: any ={}
+  effectEntriesUk:string = ''
+  effectEntries:any[] =[]
+
   constructor(
     @Inject(MAT_DIALOG_DATA)
     public data: {
@@ -35,9 +38,16 @@ export class PokemonDetailsComponent implements OnInit, OnDestroy {
 
   ) {
 
-    // this.ability$ = this.store.pipe(select(selectAbility.effect_entries[0].))
-    this.store.pipe(select(selectAbility), takeUntil(this.destroy$))
-      .subscribe(data => this.ability = data)
+
+    this.store.pipe(select(selectAbility), takeUntil(this.destroy$)).subscribe((data) => {
+      this.ability = data
+      data.effect_entries[0].effect &&   (this.effectEntriesUk = data.effect_entries[0].effect)
+    })
+
+
+// debugger
+//     this.effectEntriesUk = this.effectEntries?.filter((el:any) => (el.language.name.includes('uk'))
+//       )
 
   }
 

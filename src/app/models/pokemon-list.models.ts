@@ -23,5 +23,13 @@ export interface Common{
   }
 
 export interface PokemonAbility {
-  ability:any
+  ability:{
+    effect_entries:[{
+      effect: string,
+      language: {
+        name: string,
+        url: string
+      },
+    }]
+  }
 }

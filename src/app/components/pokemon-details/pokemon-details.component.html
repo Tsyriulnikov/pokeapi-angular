@@ -1,8 +1,11 @@
 <h2 mat-dialog-title>{{data.name}} #{{data.id}}</h2>
 <mat-dialog-content class="mat-typography container">
+  <ng-container *ngIf="!!ability.effect_entries ">
   <div class="about-block">
-    <p>{{ability.effect_entries[0].effect}} </p>
+    <p>{{ability.effect_entries[0].effect}}  </p>
+    <p>{{effectEntriesUk}}  </p>
   </div>
+  </ng-container>
   <div class="image-block">
     <img [src]="data.sprites.front_default"/>
   </div>
