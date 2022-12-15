@@ -34,6 +34,16 @@ export class PokemonDetailsComponent implements OnInit, OnDestroy {
       id: string,
       height: number,
       weight: number,
+
+      types: [
+        {
+          slot: number,
+          type: {
+            name: string,
+            url: string
+          }
+        }],
+
       abilities: [
         {
           ability: {
