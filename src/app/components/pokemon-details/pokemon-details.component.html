@@ -1,17 +1,28 @@
 <h2 mat-dialog-title>{{data.name}} #{{data.id}}</h2>
 <mat-dialog-content class="mat-typography container">
-  <ng-container *ngIf="!!ability.effect_entries ">
+  <!--  <ng-container *ngIf="!!ability.effect_entries ">-->
   <div class="about-block">
-<!--    <p>{{ability.effect_entries[0].effect}}  </p>-->
-    <p>{{effectEntries[0]}}  </p>
+    <div class="about-id-block">
+      <h2>No. {{data.id}}</h2>
+    </div>
+    <div class="about-name-block">
+      <h1>{{data.name}}</h1>
+    </div>
+    <div class="about-type-block" *ngFor="data">
+      <p>{{effectEntries[0]}}</p>
+    </div>
+    <div class="about-description-block">
+      <p>{{effectEntries[0]}}</p>
+    </div>
+
   </div>
-  </ng-container>
+  <!--  </ng-container>-->
   <div class="image-block">
-    <img [src]="data.sprites.front_default"/>
+    <img [src]="data.sprites.other.dream_world.front_default" alt="image pokemon"/>
   </div>
   <div class="parameters-block">
-    <p>Height2' 04</p>
-    <p>Weight15.2 lb</p>
+    <p>Height:  {{data.height}}"</p>
+    <p>Weight: {{data.weight}} lb</p>
   </div>
 </mat-dialog-content>
 <mat-dialog-actions align="end">

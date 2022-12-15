@@ -14,16 +14,26 @@ import {PokemonAbility} from "../../models/pokemon-list.models";
 export class PokemonDetailsComponent implements OnInit, OnDestroy {
 
   private destroy$ = new Subject<void>()
-  ability?: any = {}
-  effectEntriesUk: string = ''
+  // ability?: any = {}
+  // effectEntriesUk: string = ''
   effectEntries: any[] = []
 
   constructor(
     @Inject(MAT_DIALOG_DATA)
     public data: {
       name: string,
-      sprites: { front_default: string },
+      sprites: {
+        front_default: string,
+        back_default: string
+        other: {
+          dream_world: {
+            front_default: string
+          }
+        }
+      },
       id: string,
+      height: number,
+      weight: number,
       abilities: [
         {
           ability: {
@@ -39,7 +49,7 @@ export class PokemonDetailsComponent implements OnInit, OnDestroy {
 
 
     this.store.pipe(select(selectAbility), takeUntil(this.destroy$)).subscribe((data) => {
-      this.ability = data
+      // this.ability = data
       this.effectEntries = data.effect_entries.filter(el => el.language.name.includes('en')).map(el => el.effect)
     })
   }
