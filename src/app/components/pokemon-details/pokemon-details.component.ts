@@ -14,9 +14,9 @@ import {PokemonAbility} from "../../models/pokemon-list.models";
 export class PokemonDetailsComponent implements OnInit, OnDestroy {
 
   private destroy$ = new Subject<void>()
-  ability?: any ={}
-  effectEntriesUk:string = ''
-  effectEntries:any[] =[]
+  ability?: any = {}
+  effectEntriesUk: string = ''
+  effectEntries: any[] = []
 
   constructor(
     @Inject(MAT_DIALOG_DATA)
@@ -35,25 +35,19 @@ export class PokemonDetailsComponent implements OnInit, OnDestroy {
         }],
     },
     private readonly store: Store<StateApp>,
-
   ) {
 
 
     this.store.pipe(select(selectAbility), takeUntil(this.destroy$)).subscribe((data) => {
       this.ability = data
-      data.effect_entries[0].effect &&   (this.effectEntriesUk = data.effect_entries[0].effect)
+      this.effectEntries = data.effect_entries.filter(el => el.language.name.includes('en')).map(el => el.effect)
     })
-
-
-// debugger
-//     this.effectEntriesUk = this.effectEntries?.filter((el:any) => (el.language.name.includes('uk'))
-//       )
-
   }
 
   ngOnInit(): void {
     this.store.dispatch(getPokemonAbility({urlAbility: this.data.abilities[0].ability.url}))
   }
+
   ngOnDestroy() {
     this.destroy$.next()
     this.destroy$.complete()
