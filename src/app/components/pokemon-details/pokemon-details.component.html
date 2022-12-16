@@ -1,6 +1,12 @@
+<ng-container *ngIf="loading$ | async">
+  <div class="overlay"></div>
+  <mat-progress-spinner [mode]="'indeterminate'"></mat-progress-spinner>
+</ng-container>
+
 <h2 mat-dialog-title>{{data.name}} #{{data.id}}</h2>
 <mat-dialog-content class="mat-typography container">
   <!--  <ng-container *ngIf="!!ability.effect_entries ">-->
+
   <div class="about-block">
     <div class="about-id-block">
       <h2>No. {{data.id}}</h2>
@@ -16,6 +22,10 @@
     </div>
 
   </div>
+
+
+
+
   <!--  </ng-container>-->
   <div class="image-block">
     <img [src]="data.sprites.other.dream_world.front_default" alt="image pokemon"/>

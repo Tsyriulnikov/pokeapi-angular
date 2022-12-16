@@ -5,6 +5,7 @@ import {selectAbility, selectPokemonProps, selectQuantityPokemons, StateApp} fro
 import {getPokemonAbility} from "../../store/actions/pokemon-list.actions";
 import {Observable, Subject, takeUntil} from "rxjs";
 import {PokemonAbility} from "../../models/pokemon-list.models";
+import {LoadingService} from "../../serrvices/loading.service";
 
 @Component({
   selector: 'app-pokemon-details',
@@ -17,7 +18,7 @@ export class PokemonDetailsComponent implements OnInit, OnDestroy {
   // ability?: any = {}
   // effectEntriesUk: string = ''
   effectEntries: any[] = []
-
+  loading$ = this.loader.loading$
   constructor(
     @Inject(MAT_DIALOG_DATA)
     public data: {
@@ -55,6 +56,7 @@ export class PokemonDetailsComponent implements OnInit, OnDestroy {
         }],
     },
     private readonly store: Store<StateApp>,
+    public loader: LoadingService,
   ) {
 
 
