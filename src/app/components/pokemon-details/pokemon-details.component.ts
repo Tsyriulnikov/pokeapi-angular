@@ -18,6 +18,7 @@ export class PokemonDetailsComponent implements OnInit, OnDestroy {
   // ability?: any = {}
   // effectEntriesUk: string = ''
   effectEntries: any[] = []
+
   constructor(
     @Inject(MAT_DIALOG_DATA)
     public data: {
@@ -28,7 +29,10 @@ export class PokemonDetailsComponent implements OnInit, OnDestroy {
         other: {
           dream_world: {
             front_default: string
-          }
+          },
+          home: {
+            front_default: string
+          },
         }
       },
       id: string,
