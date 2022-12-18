@@ -37,3 +37,14 @@ img {
   }
 }
 
+.about-type-block span {
+  background-color: #1e3abf;
+  border-radius: 10%;
+  font-size: x-large;
+}
+
+.about-type-block {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
