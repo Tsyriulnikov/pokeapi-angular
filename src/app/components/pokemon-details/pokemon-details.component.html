@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>{{data.name}} #{{data.id}}</h2>
+<h2 mat-dialog-title>{{data.name | titlecase }} #{{data.id}}</h2>
 <mat-dialog-content class="mat-typography container">
   <!--  <ng-container *ngIf="!!ability.effect_entries ">-->
 
@@ -7,15 +7,15 @@
       <h2>No. {{data.id}}</h2>
     </div>
     <div class="about-name-block">
-      <h1>{{data.name}}</h1>
+      <h1>{{data.name | titlecase}}</h1>
     </div>
     <div class="about-type-block" >
       <div *ngFor="let types of data.types">
-        {{types.type.name}}
+        <h1>{{types.type.name}}</h1>
       </div>
     </div>
     <div class="about-description-block">
-      <p>{{effectEntries[0]}}</p>
+      {{effectEntries[0]}}
     </div>
   </div>
 

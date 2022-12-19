@@ -37,14 +37,45 @@ img {
   }
 }
 
-.about-type-block span {
+.about-type-block h1 {
   background-color: #1e3abf;
   border-radius: 10%;
-  font-size: x-large;
+  font-family: cursive;
 }
 
 .about-type-block {
   display: flex;
+  width: 50%;
   justify-content: space-between;
   flex-direction: row;
+}
+
+.about-description-block {
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  word-wrap: break-word;
+  text-overflow: clip;
+  font-size: large;
+  font-family: cursive;
+  flex-grow: 1;
+  //overflow-y: auto;
+}
+.about-description-block span {
+  font-size: x-large;
+  font-family: cursive;
+}
+
+.about-name-block h1 {
+  font-weight: bold;
+  color: black;
+  font-family: cursive;
+}
+.parameters-block {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-family: cursive;
 }
