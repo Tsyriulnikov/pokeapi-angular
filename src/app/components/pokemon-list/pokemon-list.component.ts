@@ -44,7 +44,15 @@ export class PokemonListComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     private readonly store: Store<StateApp>,
   ) {
-
+    this.store.pipe(select(selectPokemonProps), takeUntil(this.destroy$))
+      .subscribe(data => this.pokemons = data)
+    this.store.pipe(select(selectPokemonList), takeUntil(this.destroy$))
+      .subscribe(data => this.store.dispatch(getPokemonProps({pokemonList: data})))
+    this.store.pipe(select(selectPageSize), takeUntil(this.destroy$))
+      .subscribe(data => this.pageSize = data)
+    this.store.pipe(select(selectPageIndex), takeUntil(this.destroy$))
+      .subscribe(data => this.pageIndex = data)
+    this.countPokemons$ = this.store.pipe(select(selectQuantityPokemons))
   }
 
   ngOnInit(): void {
