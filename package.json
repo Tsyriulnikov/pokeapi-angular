@@ -23,6 +23,7 @@
     "@ngrx/effects": "^14.3.2",
     "@ngrx/store": "^14.3.2",
     "@ngrx/store-devtools": "^14.3.2",
+    "firebase": "^9.15.0",
     "lodash": "^4.17.21",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
