@@ -64,8 +64,6 @@ export const pokemonListReducer = createReducer(
   })),
 
 //Change Page List
-  on(changePageSize, (state, {pageSize}) => ({...state, common: {...state.common, pageSize: pageSize}})),
-  on(changePageIndex, (state, {pageIndex}) => ({...state, common: {...state.common, pageIndex: pageIndex}})),
 
 //Get ability pokemons
   on(getPokemonAbility, (state) => ({...state, common: {...state.common, isLoading: true}})),
