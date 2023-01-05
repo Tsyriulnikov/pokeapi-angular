@@ -29,7 +29,14 @@ import {
 export class PokemonListComponent implements OnInit, OnDestroy {
 
   loading$ = this.loader.loading$
-
+  displayedColumns: string[] = ['id', 'name', 'image'];
+  countPokemons$!: Observable<number>
+  pageSizeOptions: number[] = [5, 10, 25, 50, 100]
+  pageEvent!: PageEvent
+  pokemons?: any[];
+  pokemonList!: PokemonResponseResults[]
+  pageSize!: number
+  pageIndex!: number
   private destroy$ = new Subject<void>();
 
   constructor(
